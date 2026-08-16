@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAG Staff Management Portal</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f8fa;
+    color: #263238;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ================= LOGIN ================= */
+
+.login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #dff5ff, #ffffff);
+}
+
+.login-box {
+    width: 100%;
+    max-width: 440px;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    text-align: center;
+}
+
+.school-logo {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #168aad;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Replace the placeholder above with the actual school logo later. */
+
+.login-box h1 {
+    color: #086788;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: #667;
+    margin-bottom: 25px;
+}
+
+.input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border: 1px solid #ccd6da;
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 9px;
+    background: #168aad;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.primary-btn:hover {
+    background: #086788;
+}
+
+.error {
+    color: #c62828 !important;
+    margin-top: 12px;
+}
+
+.demo-box {
+    margin-top: 20px;
+    padding: 12px;
+    background: #edf8fc;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* ================= APP ================= */
+
+.app {
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 70px;
+    background: #086788;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.topbar h2 {
+    font-size: 20px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logout {
+    background: white;
+    color: #086788;
+    border: 0;
+    padding: 9px 15px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 235px;
+    background: white;
+    border-right: 1px solid #ddd;
+    padding: 20px 10px;
+}
+
+.nav-btn {
+    width: 100%;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    padding: 13px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: #e5f5fa;
+    color: #086788;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    padding: 25px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.page-title h1 {
+    color: #086788;
+    margin-bottom: 5px;
+}
+
+.page-title p {
+    color: #68777d;
+}
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+
+.card h3 {
+    color: #086788;
+    margin-bottom: 10px;
+}
+
+.big-number {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* ================= PANELS ================= */
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    margin-bottom: 20px;
+}
+
+.panel h2 {
+    color: #086788;
+    margin-bottom: 18px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e7ecef;
+    text-align: left;
+}
+
+th {
+    background: #eaf6fa;
+    color: #086788;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.not-attended {
+    background: #eeeeee;
+    color: #444;
+}
+
+/* ================= BUTTONS ================= */
+
+.small-btn {
+    border: 0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.approve-btn {
+    background: #2e7d32;
+    color: white;
+}
+
+.reject-btn {
+    background: #c62828;
+    color: white;
+}
+
+.action-btn {
+    background: #168aad;
+    color: white;
+}
+
+/* ================= ATTENDANCE ================= */
+
+.attendance-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.attendance-actions button {
+    padding: 13px 20px;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+
+.sign-in {
+    background: #2e7d32;
+}
+
+.sign-out {
+    background: #c62828;
+}
+
+.location-box {
+    background: #f3f8fa;
+    padding: 15px;
+    border-radius: 9px;
+    margin-top: 15px;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.profile-item {
+    background: #f5fafc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.profile-item strong {
+    display: block;
+    color: #086788;
+    margin-bottom: 5px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 800px) {
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .nav-btn {
+        min-width: 130px;
+        text-align: center;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .topbar h2 {
+        font-size: 16px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================================================= -->
+<!-- LOGIN -->
+<!-- ================================================= -->
+
+<div id="loginScreen" class="login-screen">
+
+    <div class="login-box">
+
+        <div class="school-logo">
+            SAG
+        </div>
+
+        <h1>SAG STAFF PORTAL</h1>
+
+        <p>
+            Senior Chief Adano Girls Senior School
+        </p>
+
+        <input
+            id="loginCode"
+            class="input"
+            type="text"
+            placeholder="School Staff Code"
+        >
+
+        <input
+            id="loginPassword"
+            class="input"
+            type="password"
+            placeholder="Password"
+        >
+
+        <button
+            class="primary-btn"
+            onclick="login()"
+        >
+            LOGIN
+        </button>
+
+        <p
+            id="loginError"
+            class="error hidden"
+        ></p>
+
+        <div class="demo-box">
+            <strong>V1 DEMO ACCOUNTS</strong><br><br>
+
+            Admin: ADMIN001 / ADMIN2026<br>
+            Secretary: SEC001 / SEC2026<br>
+            Deputy: DEP001 / DEP2026<br>
+            Teacher: TCH001 / TCH2026<br>
+            Principal: PRIN001 / PRIN2026
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- APPLICATION -->
+<!-- ================================================= -->
+
+<div id="app" class="app hidden">
+
+    <header class="topbar">
+
+        <h2>SAG STAFF MANAGEMENT PORTAL</h2>
+
+        <div class="user-area">
+
+            <span id="currentUser"></span>
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="layout">
+
+        <!-- NAVIGATION -->
+
+        <aside class="sidebar" id="sidebar">
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="content">
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section
+                id="dashboardPage"
+                class="page active"
+            >
+
+                <div class="page-title">
+
+                    <h1 id="dashboardTitle">
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Senior Chief Adano Girls Senior School
+                    </p>
+
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+
+                        <h3>Staff</h3>
+
+                        <div class="big-number">
+                            25
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>Present Today</h3>
+
+                        <div class="big-number">
+                            22
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>Pending Approval</h3>
+
+                        <div
+                            id="pendingCount"
+                            class="big-number"
+                        >
+                            2
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>Lessons Today</h3>
+
+                        <div class="big-number">
+                            48
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h2>System Information</h2>
+
+                    <p>
+                        Your role determines which information
+                        and actions are available to you.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <section
+                id="attendancePage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <h1>Weekly School Attendance</h1>
+
+                    <p>
+                        Attendance records and time in/out
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h2>Today's Attendance</h2>
+
+                    <div class="attendance-actions">
+
+                        <button
+                            class="sign-in"
+                            onclick="submitAttendance('IN')"
+                        >
+                            SIGN IN
+                        </button>
+
+                        <button
+                            class="sign-out"
+                            onclick="submitAttendance('OUT')"
+                        >
+                            SIGN OUT
+                        </button>
+
+                    </div>
+
+
+                    <div class="location-box">
+
+                        📍 Location verification:
+                        <strong id="locationStatus">
+                            Not checked
+                        </strong>
+
+                        <br><br>
+
+                        Allowed school radius:
+                        <strong>500 metres</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h2>Weekly Record</h2>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Status</th>
+                                <th>Approval</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="weeklyAttendance">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= APPROVALS ================= -->
+
+            <section
+                id="approvalPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <h1>Attendance Approvals</h1>
+
+                    <p>
+                        Review staff attendance submissions
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Staff Code</th>
+                                <th>Date</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="approvalTable">
+
+                            <tr>
+
+                                <td>TCH001</td>
+                                <td>Today</td>
+                                <td>7:35 AM</td>
+                                <td>4:05 PM</td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="small-btn approve-btn"
+                                        onclick="approveRecord(this)"
+                                    >
+                                        Approve
+                                    </button>
+
+                                    <button
+                                        class="small-btn reject-btn"
+                                        onclick="rejectRecord(this)"
+                                    >
+                                        Reject
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= LESSONS ================= -->
+
+            <section
+                id="lessonPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <h1>Lesson Attendance</h1>
+
+                    <p>
+                        Lesson attendance and automatic timing
+                    </p>
+
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+
+                        <h3>Total Lessons</h3>
+
+                        <div class="big-number">
+                            25
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <h3>Lessons Attended</h3>
+
+                        <div class="big-number">
+                            22
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <h3>Lessons Not Attended</h3>
+
+                        <div class="big-number">
+                            3
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h2>Lesson Records</h2>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Teacher</th>
+                                <th>Subject</th>
+                                <th>Class</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>TCH001</td>
+                                <td>Mathematics</td>
+                                <td>Form 1A</td>
+                                <td>8:00 AM</td>
+                                <td>
+                                    <span class="status approved">
+                                        Attended
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= STAFF ================= -->
+
+            <section
+                id="staffPage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <h1>Staff Management</h1>
+
+                    <p>
+                        Staff profiles, subjects and classes
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Subjects</th>
+                                <th>Classes</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>TCH001</td>
+                                <td>Teacher 1</td>
+                                <td>Teacher</td>
+                                <td>Mathematics</td>
+                                <td>Form 1A, Form 2B</td>
+                                <td>Active</td>
+                            </tr>
+
+                            <tr>
+                                <td>TCH002</td>
+                                <td>Teacher 2</td>
+                                <td>Teacher</td>
+                                <td>English</td>
+                                <td>Form 1B, Form 3A</td>
+                                <td>Active</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <section
+                id="profilePage"
+                class="page"
+            >
+
+                <div class="page-title">
+
+                    <h1>My Profile</h1>
+
+                    <p>
+                        Staff information
+                    </p>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="profile-grid">
+
+                        <div class="profile-item">
+
+                            <strong>Staff Code</strong>
+
+                            <span id="profileCode">
+                                -
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <strong>Name</strong>
+
+                            <span id="profileName">
+                                -
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <strong>Role</strong>
+
+                            <span id="profileRole">
+                                -
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <strong>Subjects</strong>
+
+                            <span id="profileSubjects">
+                                -
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <strong>Classes</strong>
+
+                            <span id="profileClasses">
+                                -
+                            </span>
+
+                        </div>
