@@ -3,246 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAG Staff Management Portal</title>
+
+<title>SAG Staff Portal V1</title>
 
 <style>
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
 }
 
 body {
-    background: #f3f8fa;
-    color: #263238;
-}
-
-button {
-    cursor: pointer;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef7fa;
+    color: #222;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 
-.login-screen {
+#loginScreen {
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     padding: 20px;
-    background: linear-gradient(135deg, #dff5ff, #ffffff);
 }
 
-.login-box {
+.loginBox {
     width: 100%;
-    max-width: 440px;
+    max-width: 400px;
     background: white;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     text-align: center;
 }
 
-.school-logo {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 18px;
+.logo {
+    width: 80px;
+    height: 80px;
+    margin: auto;
     border-radius: 50%;
     background: #168aad;
     color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 26px;
+    align-items: center;
+    font-size: 25px;
     font-weight: bold;
 }
 
-/* Replace the placeholder above with the actual school logo later. */
-
-.login-box h1 {
+h1 {
     color: #086788;
-    font-size: 24px;
-    margin-bottom: 8px;
 }
 
-.login-box p {
-    color: #667;
-    margin-bottom: 25px;
-}
-
-.input {
+input {
     width: 100%;
-    padding: 14px;
+    padding: 13px;
     margin: 8px 0;
-    border: 1px solid #ccd6da;
-    border-radius: 9px;
-    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
 }
 
-.primary-btn {
+button {
+    cursor: pointer;
+}
+
+.loginBtn {
     width: 100%;
-    padding: 14px;
-    border: 0;
-    border-radius: 9px;
+    padding: 13px;
     background: #168aad;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.primary-btn:hover {
-    background: #086788;
-}
-
-.error {
-    color: #c62828 !important;
-    margin-top: 12px;
-}
-
-.demo-box {
-    margin-top: 20px;
-    padding: 12px;
-    background: #edf8fc;
-    border-radius: 8px;
-    font-size: 13px;
-    color: #555;
-}
-
-/* ================= APP ================= */
-
-.app {
-    min-height: 100vh;
-}
-
-.topbar {
-    height: 70px;
-    background: #086788;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-}
-
-.topbar h2 {
-    font-size: 20px;
-}
-
-.user-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logout {
-    background: white;
-    color: #086788;
-    border: 0;
-    padding: 9px 15px;
+    border: none;
     border-radius: 7px;
     font-weight: bold;
 }
 
-.layout {
+.loginBtn:hover {
+    background: #086788;
+}
+
+#error {
+    color: red;
+    margin-top: 10px;
+}
+
+.demo {
+    margin-top: 20px;
+    padding: 12px;
+    background: #eef8fb;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* PORTAL */
+
+#portal {
+    min-height: 100vh;
+}
+
+.header {
+    background: #086788;
+    color: white;
+    padding: 18px;
     display: flex;
-    min-height: calc(100vh - 70px);
+    justify-content: space-between;
+    align-items: center;
 }
 
-.sidebar {
-    width: 235px;
+.header button {
     background: white;
-    border-right: 1px solid #ddd;
-    padding: 20px 10px;
-}
-
-.nav-btn {
-    width: 100%;
-    text-align: left;
-    border: 0;
-    background: transparent;
-    padding: 13px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-    background: #e5f5fa;
     color: #086788;
-    font-weight: bold;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
 }
 
-.content {
-    flex: 1;
+.container {
     padding: 25px;
 }
 
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-.page-title {
-    margin-bottom: 20px;
-}
-
-.page-title h1 {
-    color: #086788;
-    margin-bottom: 5px;
-}
-
-.page-title p {
-    color: #68777d;
-}
-
-/* ================= CARDS ================= */
-
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 18px;
-    margin-bottom: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 15px;
 }
 
 .card {
     background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
 .card h3 {
     color: #086788;
-    margin-bottom: 10px;
 }
 
-.big-number {
+.number {
     font-size: 30px;
     font-weight: bold;
 }
 
-/* ================= PANELS ================= */
-
-.panel {
-    background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.panel h2 {
+.menu button {
+    padding: 11px 15px;
+    border: none;
+    border-radius: 7px;
+    background: white;
     color: #086788;
-    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.panel {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.green {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 7px;
+}
+
+.red {
+    background: #c62828;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 7px;
 }
 
 table {
@@ -250,168 +200,44 @@ table {
     border-collapse: collapse;
 }
 
-th,
-td {
-    padding: 12px;
-    border-bottom: 1px solid #e7ecef;
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
     text-align: left;
 }
 
 th {
-    background: #eaf6fa;
+    background: #e8f5f9;
     color: #086788;
 }
 
-.status {
-    display: inline-block;
-    padding: 5px 9px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-}
+@media(max-width:600px) {
 
-.pending {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.approved {
-    background: #d4edda;
-    color: #155724;
-}
-
-.rejected {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.not-attended {
-    background: #eeeeee;
-    color: #444;
-}
-
-/* ================= BUTTONS ================= */
-
-.small-btn {
-    border: 0;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-weight: bold;
-    margin: 2px;
-}
-
-.approve-btn {
-    background: #2e7d32;
-    color: white;
-}
-
-.reject-btn {
-    background: #c62828;
-    color: white;
-}
-
-.action-btn {
-    background: #168aad;
-    color: white;
-}
-
-/* ================= ATTENDANCE ================= */
-
-.attendance-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.attendance-actions button {
-    padding: 13px 20px;
-    border: 0;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-}
-
-.sign-in {
-    background: #2e7d32;
-}
-
-.sign-out {
-    background: #c62828;
-}
-
-.location-box {
-    background: #f3f8fa;
-    padding: 15px;
-    border-radius: 9px;
-    margin-top: 15px;
-}
-
-/* ================= PROFILE ================= */
-
-.profile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-}
-
-.profile-item {
-    background: #f5fafc;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.profile-item strong {
-    display: block;
-    color: #086788;
-    margin-bottom: 5px;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width: 800px) {
-
-    .layout {
+    .header {
         flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-    }
-
-    .nav-btn {
-        min-width: 130px;
+        gap: 10px;
         text-align: center;
     }
 
-    .content {
+    .container {
         padding: 15px;
-    }
-
-    .topbar {
-        padding: 0 15px;
-    }
-
-    .topbar h2 {
-        font-size: 16px;
     }
 
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- ================================================= -->
+
 <!-- LOGIN -->
-<!-- ================================================= -->
 
-<div id="loginScreen" class="login-screen">
+<div id="loginScreen">
 
-    <div class="login-box">
+    <div class="loginBox">
 
-        <div class="school-logo">
+        <div class="logo">
             SAG
         </div>
 
@@ -422,39 +248,53 @@ th {
         </p>
 
         <input
-            id="loginCode"
-            class="input"
+            id="staffCode"
             type="text"
-            placeholder="School Staff Code"
+            placeholder="Staff Code"
         >
 
         <input
-            id="loginPassword"
-            class="input"
+            id="password"
             type="password"
             placeholder="Password"
         >
 
         <button
-            class="primary-btn"
-            onclick="login()"
+            id="loginButton"
+            class="loginBtn"
         >
             LOGIN
         </button>
 
-        <p
-            id="loginError"
-            class="error hidden"
-        ></p>
+        <div id="error"></div>
 
-        <div class="demo-box">
-            <strong>V1 DEMO ACCOUNTS</strong><br><br>
+        <div class="demo">
 
-            Admin: ADMIN001 / ADMIN2026<br>
-            Secretary: SEC001 / SEC2026<br>
-            Deputy: DEP001 / DEP2026<br>
-            Teacher: TCH001 / TCH2026<br>
-            Principal: PRIN001 / PRIN2026
+            <b>DEMO ACCOUNTS</b><br>
+
+            Teacher:
+            TCH001 / TCH2026
+
+            <br>
+
+            Admin:
+            ADMIN001 / ADMIN2026
+
+            <br>
+
+            Secretary:
+            SEC001 / SEC2026
+
+            <br>
+
+            Deputy:
+            DEP001 / DEP2026
+
+            <br>
+
+            Principal:
+            PRIN001 / PRIN2026
+
         </div>
 
     </div>
@@ -462,527 +302,539 @@ th {
 </div>
 
 
-<!-- ================================================= -->
-<!-- APPLICATION -->
-<!-- ================================================= -->
+<!-- PORTAL -->
 
-<div id="app" class="app hidden">
+<div id="portal" class="hidden">
 
-    <header class="topbar">
+    <div class="header">
 
-        <h2>SAG STAFF MANAGEMENT PORTAL</h2>
+        <strong>SAG STAFF MANAGEMENT PORTAL</strong>
 
-        <div class="user-area">
+        <span>
+            <span id="userName"></span>
 
-            <span id="currentUser"></span>
-
-            <button
-                class="logout"
-                onclick="logout()"
-            >
+            <button id="logoutButton">
                 Logout
+            </button>
+        </span>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <div class="menu">
+
+            <button data-section="dashboard">
+                Dashboard
+            </button>
+
+            <button data-section="attendance">
+                Attendance
+            </button>
+
+            <button data-section="lessons">
+                Lessons
+            </button>
+
+            <button data-section="staff">
+                Staff
+            </button>
+
+            <button data-section="reports">
+                Reports
+            </button>
+
+            <button data-section="profile">
+                Profile
             </button>
 
         </div>
 
-    </header>
 
+        <!-- DASHBOARD -->
 
-    <div class="layout">
+        <div
+            id="dashboard"
+            class="section active"
+        >
 
-        <!-- NAVIGATION -->
+            <h2>Dashboard</h2>
 
-        <aside class="sidebar" id="sidebar">
+            <div class="cards">
 
-        </aside>
-
-
-        <!-- MAIN CONTENT -->
-
-        <main class="content">
-
-
-            <!-- ================= DASHBOARD ================= -->
-
-            <section
-                id="dashboardPage"
-                class="page active"
-            >
-
-                <div class="page-title">
-
-                    <h1 id="dashboardTitle">
-                        Dashboard
-                    </h1>
-
-                    <p>
-                        Senior Chief Adano Girls Senior School
-                    </p>
-
+                <div class="card">
+                    <h3>Total Staff</h3>
+                    <div class="number">25</div>
                 </div>
 
-
-                <div class="cards">
-
-                    <div class="card">
-
-                        <h3>Staff</h3>
-
-                        <div class="big-number">
-                            25
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>Present Today</h3>
-
-                        <div class="big-number">
-                            22
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>Pending Approval</h3>
-
-                        <div
-                            id="pendingCount"
-                            class="big-number"
-                        >
-                            2
-                        </div>
-
-                    </div>
-
-
-                    <div class="card">
-
-                        <h3>Lessons Today</h3>
-
-                        <div class="big-number">
-                            48
-                        </div>
-
-                    </div>
-
+                <div class="card">
+                    <h3>Present Today</h3>
+                    <div class="number">22</div>
                 </div>
 
-
-                <div class="panel">
-
-                    <h2>System Information</h2>
-
-                    <p>
-                        Your role determines which information
-                        and actions are available to you.
-                    </p>
-
+                <div class="card">
+                    <h3>Pending Approval</h3>
+                    <div class="number">3</div>
                 </div>
 
-            </section>
-
-
-            <!-- ================= ATTENDANCE ================= -->
-
-            <section
-                id="attendancePage"
-                class="page"
-            >
-
-                <div class="page-title">
-
-                    <h1>Weekly School Attendance</h1>
-
-                    <p>
-                        Attendance records and time in/out
-                    </p>
-
+                <div class="card">
+                    <h3>Lessons Today</h3>
+                    <div class="number">48</div>
                 </div>
 
+            </div>
 
-                <div class="panel">
-
-                    <h2>Today's Attendance</h2>
-
-                    <div class="attendance-actions">
-
-                        <button
-                            class="sign-in"
-                            onclick="submitAttendance('IN')"
-                        >
-                            SIGN IN
-                        </button>
-
-                        <button
-                            class="sign-out"
-                            onclick="submitAttendance('OUT')"
-                        >
-                            SIGN OUT
-                        </button>
-
-                    </div>
+        </div>
 
 
-                    <div class="location-box">
+        <!-- ATTENDANCE -->
 
-                        📍 Location verification:
-                        <strong id="locationStatus">
-                            Not checked
-                        </strong>
+        <div
+            id="attendance"
+            class="section"
+        >
 
-                        <br><br>
+            <h2>School Attendance</h2>
 
-                        Allowed school radius:
-                        <strong>500 metres</strong>
+            <div class="panel">
 
-                    </div>
+                <p>
+                    Today's attendance
+                </p>
 
+                <button
+                    id="signIn"
+                    class="green"
+                >
+                    SIGN IN
+                </button>
+
+                <button
+                    id="signOut"
+                    class="red"
+                >
+                    SIGN OUT
+                </button>
+
+                <p id="attendanceMessage"></p>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>Weekly Attendance</h3>
+
+                <table>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Time In</th>
+                        <th>Time Out</th>
+                        <th>Status</th>
+                    </tr>
+
+                    <tr>
+                        <td>Today</td>
+                        <td id="timeIn">—</td>
+                        <td id="timeOut">—</td>
+                        <td>Pending Approval</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- LESSONS -->
+
+        <div
+            id="lessons"
+            class="section"
+        >
+
+            <h2>Lesson Attendance</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Total Lessons</h3>
+                    <div class="number">25</div>
                 </div>
 
-
-                <div class="panel">
-
-                    <h2>Weekly Record</h2>
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>Date</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Status</th>
-                                <th>Approval</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="weeklyAttendance">
-
-                        </tbody>
-
-                    </table>
-
+                <div class="card">
+                    <h3>Attended</h3>
+                    <div class="number">22</div>
                 </div>
 
-            </section>
-
-
-            <!-- ================= APPROVALS ================= -->
-
-            <section
-                id="approvalPage"
-                class="page"
-            >
-
-                <div class="page-title">
-
-                    <h1>Attendance Approvals</h1>
-
-                    <p>
-                        Review staff attendance submissions
-                    </p>
-
+                <div class="card">
+                    <h3>Not Attended</h3>
+                    <div class="number">3</div>
                 </div>
 
+            </div>
 
-                <div class="panel">
+        </div>
 
-                    <table>
 
-                        <thead>
+        <!-- STAFF -->
 
-                            <tr>
-                                <th>Staff Code</th>
-                                <th>Date</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
+        <div
+            id="staff"
+            class="section"
+        >
 
-                        </thead>
+            <h2>Staff Management</h2>
 
-                        <tbody id="approvalTable">
+            <div class="panel">
 
-                            <tr>
+                <table>
 
-                                <td>TCH001</td>
-                                <td>Today</td>
-                                <td>7:35 AM</td>
-                                <td>4:05 PM</td>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Subject</th>
+                    </tr>
 
-                                <td>
-                                    <span class="status pending">
-                                        Pending
-                                    </span>
-                                </td>
+                    <tr>
+                        <td>TCH001</td>
+                        <td>Teacher One</td>
+                        <td>Teacher</td>
+                        <td>Mathematics</td>
+                    </tr>
 
-                                <td>
+                    <tr>
+                        <td>TCH002</td>
+                        <td>Teacher Two</td>
+                        <td>Teacher</td>
+                        <td>English</td>
+                    </tr>
 
-                                    <button
-                                        class="small-btn approve-btn"
-                                        onclick="approveRecord(this)"
-                                    >
-                                        Approve
-                                    </button>
+                </table>
 
-                                    <button
-                                        class="small-btn reject-btn"
-                                        onclick="rejectRecord(this)"
-                                    >
-                                        Reject
-                                    </button>
+            </div>
 
-                                </td>
+        </div>
 
-                            </tr>
 
-                        </tbody>
+        <!-- REPORTS -->
 
-                    </table>
+        <div
+            id="reports"
+            class="section"
+        >
 
-                </div>
+            <h2>Reports</h2>
 
-            </section>
+            <div class="panel">
 
+                <p>
+                    Weekly attendance summary
+                </p>
 
-            <!-- ================= LESSONS ================= -->
+                <p>
+                    Present: 22
+                </p>
 
-            <section
-                id="lessonPage"
-                class="page"
-            >
+                <p>
+                    Not attended: 3
+                </p>
 
-                <div class="page-title">
+                <br>
 
-                    <h1>Lesson Attendance</h1>
+                <button
+                    class="loginBtn"
+                    id="pdfButton"
+                >
+                    GENERATE REPORT
+                </button>
 
-                    <p>
-                        Lesson attendance and automatic timing
-                    </p>
+            </div>
 
-                </div>
+        </div>
 
 
-                <div class="cards">
+        <!-- PROFILE -->
 
-                    <div class="card">
+        <div
+            id="profile"
+            class="section"
+        >
 
-                        <h3>Total Lessons</h3>
+            <h2>My Profile</h2>
 
-                        <div class="big-number">
-                            25
-                        </div>
+            <div class="panel">
 
-                    </div>
+                <p>
+                    <b>Staff Code:</b>
+                    <span id="profileCode"></span>
+                </p>
 
-                    <div class="card">
+                <p>
+                    <b>Name:</b>
+                    <span id="profileName"></span>
+                </p>
 
-                        <h3>Lessons Attended</h3>
+                <p>
+                    <b>Role:</b>
+                    <span id="profileRole"></span>
+                </p>
 
-                        <div class="big-number">
-                            22
-                        </div>
+                <p>
+                    <b>Subject:</b>
+                    <span id="profileSubject"></span>
+                </p>
 
-                    </div>
+            </div>
 
-                    <div class="card">
+        </div>
 
-                        <h3>Lessons Not Attended</h3>
 
-                        <div class="big-number">
-                            3
-                        </div>
+    </div>
 
-                    </div>
+</div>
 
-                </div>
 
+<script>
 
-                <div class="panel">
+const users = {
 
-                    <h2>Lesson Records</h2>
+    TCH001: {
+        password: "TCH2026",
+        name: "Teacher One",
+        role: "Teacher",
+        subject: "Mathematics"
+    },
 
-                    <table>
+    ADMIN001: {
+        password: "ADMIN2026",
+        name: "System Administrator",
+        role: "Admin",
+        subject: "Administration"
+    },
 
-                        <thead>
+    SEC001: {
+        password: "SEC2026",
+        name: "School Secretary",
+        role: "Secretary",
+        subject: "Administration"
+    },
 
-                            <tr>
-                                <th>Teacher</th>
-                                <th>Subject</th>
-                                <th>Class</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
+    DEP001: {
+        password: "DEP2026",
+        name: "Deputy Principal",
+        role: "Deputy",
+        subject: "Administration"
+    },
 
-                        </thead>
+    PRIN001: {
+        password: "PRIN2026",
+        name: "School Principal",
+        role: "Principal",
+        subject: "Administration"
+    }
 
-                        <tbody>
+};
 
-                            <tr>
-                                <td>TCH001</td>
-                                <td>Mathematics</td>
-                                <td>Form 1A</td>
-                                <td>8:00 AM</td>
-                                <td>
-                                    <span class="status approved">
-                                        Attended
-                                    </span>
-                                </td>
-                            </tr>
 
-                        </tbody>
+let currentUser = null;
 
-                    </table>
 
-                </div>
+document
+.getElementById("loginButton")
+.addEventListener("click", function() {
 
-            </section>
+    const code =
+        document
+        .getElementById("staffCode")
+        .value
+        .trim()
+        .toUpperCase();
 
+    const password =
+        document
+        .getElementById("password")
+        .value
+        .trim();
 
-            <!-- ================= STAFF ================= -->
+    const error =
+        document.getElementById("error");
 
-            <section
-                id="staffPage"
-                class="page"
-            >
 
-                <div class="page-title">
+    if (!users[code]) {
 
-                    <h1>Staff Management</h1>
+        error.textContent =
+            "Staff code not found.";
 
-                    <p>
-                        Staff profiles, subjects and classes
-                    </p>
+        return;
 
-                </div>
+    }
 
 
-                <div class="panel">
+    if (users[code].password !== password) {
 
-                    <table>
+        error.textContent =
+            "Incorrect password.";
 
-                        <thead>
+        return;
 
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Subjects</th>
-                                <th>Classes</th>
-                                <th>Status</th>
-                            </tr>
+    }
 
-                        </thead>
 
-                        <tbody>
+    currentUser = users[code];
 
-                            <tr>
-                                <td>TCH001</td>
-                                <td>Teacher 1</td>
-                                <td>Teacher</td>
-                                <td>Mathematics</td>
-                                <td>Form 1A, Form 2B</td>
-                                <td>Active</td>
-                            </tr>
 
-                            <tr>
-                                <td>TCH002</td>
-                                <td>Teacher 2</td>
-                                <td>Teacher</td>
-                                <td>English</td>
-                                <td>Form 1B, Form 3A</td>
-                                <td>Active</td>
-                            </tr>
+    document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
 
-                        </tbody>
 
-                    </table>
+    document
+    .getElementById("portal")
+    .classList.remove("hidden");
 
-                </div>
 
-            </section>
+    document
+    .getElementById("userName")
+    .textContent =
+        currentUser.name +
+        " (" +
+        currentUser.role +
+        ")";
 
 
-            <!-- ================= PROFILE ================= -->
+    document
+    .getElementById("profileCode")
+    .textContent =
+        code;
 
-            <section
-                id="profilePage"
-                class="page"
-            >
+    document
+    .getElementById("profileName")
+    .textContent =
+        currentUser.name;
 
-                <div class="page-title">
+    document
+    .getElementById("profileRole")
+    .textContent =
+        currentUser.role;
 
-                    <h1>My Profile</h1>
+    document
+    .getElementById("profileSubject")
+    .textContent =
+        currentUser.subject;
 
-                    <p>
-                        Staff information
-                    </p>
+});
 
-                </div>
 
+document
+.getElementById("logoutButton")
+.addEventListener("click", function() {
 
-                <div class="panel">
+    currentUser = null;
 
-                    <div class="profile-grid">
+    document
+    .getElementById("portal")
+    .classList.add("hidden");
 
-                        <div class="profile-item">
+    document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
 
-                            <strong>Staff Code</strong>
+});
 
-                            <span id="profileCode">
-                                -
-                            </span>
 
-                        </div>
+document
+.querySelectorAll("[data-section]")
+.forEach(function(button) {
 
+    button.addEventListener("click", function() {
 
-                        <div class="profile-item">
+        document
+        .querySelectorAll(".section")
+        .forEach(function(section) {
 
-                            <strong>Name</strong>
+            section.classList.remove("active");
 
-                            <span id="profileName">
-                                -
-                            </span>
+        });
 
-                        </div>
 
+        document
+        .getElementById(
+            button.dataset.section
+        )
+        .classList.add("active");
 
-                        <div class="profile-item">
+    });
 
-                            <strong>Role</strong>
+});
 
-                            <span id="profileRole">
-                                -
-                            </span>
 
-                        </div>
+document
+.getElementById("signIn")
+.addEventListener("click", function() {
 
+    const time =
+        new Date().toLocaleTimeString();
 
-                        <div class="profile-item">
+    document
+    .getElementById("timeIn")
+    .textContent = time;
 
-                            <strong>Subjects</strong>
+    document
+    .getElementById("attendanceMessage")
+    .textContent =
+        "Attendance submitted at " +
+        time +
+        ". Awaiting approval.";
 
-                            <span id="profileSubjects">
-                                -
-                            </span>
+});
 
-                        </div>
 
+document
+.getElementById("signOut")
+.addEventListener("click", function() {
 
-                        <div class="profile-item">
+    const time =
+        new Date().toLocaleTimeString();
 
-                            <strong>Classes</strong>
+    document
+    .getElementById("timeOut")
+    .textContent = time;
 
-                            <span id="profileClasses">
-                                -
-                            </span>
+});
 
-                        </div>
+
+document
+.getElementById("pdfButton")
+.addEventListener("click", function() {
+
+    alert(
+        "PDF reporting will be connected in the next V1 stage."
+    );
+
+});
+
+
+document
+.getElementById("password")
+.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        document
+        .getElementById("loginButton")
+        .click();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
