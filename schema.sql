@@ -1,6 +1,6 @@
 -- ============================================================
 -- S.C.A.G.S.S STAFF PORTAL V1
--- PostgreSQL Database Schema
+-- PostgreSQL DATABASE SCHEMA
 -- ============================================================
 
 -- ============================================================
@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS staff (
         NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT staff_role_check
-        CHECK (role IN ('teacher', 'admin'))
+        CHECK (
+            role IN ('teacher', 'admin')
+        )
 
 );
 
@@ -51,7 +53,10 @@ CREATE TABLE IF NOT EXISTS attendance (
     gps_verified BOOLEAN NOT NULL DEFAULT FALSE,
 
 
+    -- ========================================================
     -- CLOCK-IN GPS
+    -- ========================================================
+
     clock_in_latitude DOUBLE PRECISION,
 
     clock_in_longitude DOUBLE PRECISION,
@@ -61,7 +66,10 @@ CREATE TABLE IF NOT EXISTS attendance (
     clock_in_distance DOUBLE PRECISION,
 
 
+    -- ========================================================
     -- CLOCK-OUT GPS
+    -- ========================================================
+
     clock_out_latitude DOUBLE PRECISION,
 
     clock_out_longitude DOUBLE PRECISION,
@@ -75,6 +83,10 @@ CREATE TABLE IF NOT EXISTS attendance (
         NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 
+    -- ========================================================
+    -- FOREIGN KEY
+    -- ========================================================
+
     CONSTRAINT attendance_staff_fk
 
         FOREIGN KEY (staff_id)
@@ -83,6 +95,10 @@ CREATE TABLE IF NOT EXISTS attendance (
 
         ON DELETE CASCADE,
 
+
+    -- ========================================================
+    -- ATTENDANCE STATUS
+    -- ========================================================
 
     CONSTRAINT attendance_status_check
 
@@ -95,11 +111,16 @@ CREATE TABLE IF NOT EXISTS attendance (
         ),
 
 
-    -- One attendance record per teacher per day
+    -- ========================================================
+    -- ONE RECORD PER STAFF MEMBER PER DAY
+    -- ========================================================
 
     CONSTRAINT unique_staff_attendance_day
 
-        UNIQUE (staff_id, attendance_date)
+        UNIQUE (
+            staff_id,
+            attendance_date
+        )
 
 );
 
@@ -119,20 +140,54 @@ CREATE TABLE IF NOT EXISTS school_settings (
     radius DOUBLE PRECISION NOT NULL DEFAULT 500,
 
     updated_at TIMESTAMP WITH TIME ZONE
+        NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-        NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+    -- Latitude must be valid
+
+    CONSTRAINT school_latitude_check
+
+        CHECK (
+            latitude >= -90
+            AND latitude <= 90
+        ),
+
+
+    -- Longitude must be valid
+
+    CONSTRAINT school_longitude_check
+
+        CHECK (
+            longitude >= -180
+            AND longitude <= 180
+        ),
+
+
+    -- Radius must be positive
+
+    CONSTRAINT school_radius_check
+
+        CHECK (
+            radius > 0
+        )
 
 );
 
 
 -- ============================================================
--- DEFAULT GPS CONFIGURATION
+-- DEFAULT SCHOOL GPS CONFIGURATION
 -- ============================================================
 
 -- IMPORTANT:
--- Replace these coordinates with the actual coordinates
--- of Senior Chief Adano Girls Senior School before using
--- the portal officially.
+--
+-- These are temporary placeholder coordinates.
+--
+-- BEFORE OFFICIAL USE:
+-- Replace 0.000000 / 0.000000 with the actual
+-- coordinates of Senior Chief Adano Girls Senior School.
+--
+-- The administrator can later update the GPS settings
+-- through the Admin Portal.
 
 INSERT INTO school_settings
 (
@@ -174,7 +229,10 @@ ON attendance(attendance_date);
 CREATE INDEX IF NOT EXISTS
 idx_attendance_staff_date
 
-ON attendance(staff_id, attendance_date);
+ON attendance(
+    staff_id,
+    attendance_date
+);
 
 
 CREATE INDEX IF NOT EXISTS
@@ -184,7 +242,9 @@ ON staff(username);
 
 
 -- ============================================================
--- DATABASE COMPLETE
+-- DATABASE READY
 -- ============================================================
 
-SELECT 'S.C.A.G.S.S STAFF PORTAL database ready.' AS message;
+SELECT
+    'S.C.A.G.S.S STAFF PORTAL database ready.'
+    AS message;
