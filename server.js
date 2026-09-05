@@ -1086,3 +1086,52 @@ app.listen(PORT, () => {
   console.log(" GPS verification: ENABLED");
   console.log("==============================================");
 });
+/* =========================================================
+   ONE-TIME ADMIN SETUP
+========================================================= */
+
+app.get("/api/setup-admin", async (req, res) => {
+  try {
+    const username = "Admin.001";
+    const password = "Admin@2026";
+
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    const existing = await supabaseRequest(
+      `staff?username=eq.${encodeURIComponent(username)}&select=id&limit=1`
+    );
+
+    if (existing.length) {
+      return res.json({
+        message: "Admin account already exists"
+      });
+    }
+
+    const result = await supabaseRequest("staff", {
+      method: "POST",
+      headers: {
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify({
+        username,
+        password_hash: passwordHash,
+        full_name: "S.C.A.G.S.S Administrator",
+        role: "admin",
+        active: true
+      })
+    });
+
+    res.json({
+      message: "Admin account created successfully",
+      username: "Admin.001"
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Unable to create admin account",
+      details: error.message
+    });
+  }
+});
