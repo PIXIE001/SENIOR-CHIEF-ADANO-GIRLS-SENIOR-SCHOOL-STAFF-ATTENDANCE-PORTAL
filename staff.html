@@ -1,0 +1,3706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0756b8"
+  >
+
+  <meta
+    name="description"
+    content="S.C.A.G.S.S Staff Attendance Portal"
+  >
+
+  <title>S.C.A.G.S.S Staff Portal | Staff</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    :root {
+      --blue: #0756b8;
+      --blue2: #0b72d1;
+      --light-blue: #eaf5ff;
+      --sky: #43a9e8;
+      --dark: #173b5f;
+      --text: #36516a;
+      --muted: #71869a;
+      --border: #dce8f2;
+      --background: #f4f8fc;
+      --white: #ffffff;
+      --green: #178447;
+      --green-bg: #eaf8ef;
+      --red: #c62828;
+      --red-bg: #fff0f0;
+      --orange: #bd6d00;
+      --orange-bg: #fff7e8;
+      --shadow: 0 10px 35px rgba(24, 70, 110, 0.08);
+    }
+
+
+    body {
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+
+    /* ==========================================
+       APP
+       ========================================== */
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+    }
+
+
+    /* ==========================================
+       SIDEBAR
+       ========================================== */
+
+    .sidebar {
+      width: 255px;
+      min-height: 100vh;
+      background:
+        linear-gradient(
+          180deg,
+          #0756b8,
+          #0b72d1
+        );
+      color: white;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      padding: 25px 16px;
+    }
+
+
+    .school-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 8px 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+
+
+    .school-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+
+    .school-brand-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+
+    .school-brand-text span {
+      display: block;
+      font-size: 9px;
+      opacity: 0.78;
+      margin-top: 3px;
+    }
+
+
+    .nav {
+      margin-top: 25px;
+      display: grid;
+      gap: 7px;
+    }
+
+
+    .nav-button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.78);
+      border-radius: 11px;
+      padding: 13px 13px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+
+    .nav-button:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+
+    .nav-button.active {
+      background: white;
+      color: var(--blue);
+    }
+
+
+    .sidebar-bottom {
+      margin-top: auto;
+    }
+
+
+    .security-label {
+      padding: 13px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 11px;
+      margin-bottom: 10px;
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.78);
+    }
+
+
+    .logout-button {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 11px;
+      padding: 12px;
+      cursor: pointer;
+      font-weight: 750;
+      font-size: 12px;
+    }
+
+
+    /* ==========================================
+       MAIN
+       ========================================== */
+
+    .main {
+      width: calc(100% - 255px);
+      margin-left: 255px;
+      min-height: 100vh;
+    }
+
+
+    .topbar {
+      height: 75px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+
+    .page-title h1 {
+      font-size: 19px;
+      color: var(--dark);
+      font-weight: 850;
+    }
+
+
+    .page-title p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+
+    .staff-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+
+    .staff-avatar {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      background: var(--light-blue);
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+
+    .staff-mini-text strong {
+      display: block;
+      color: var(--dark);
+      font-size: 12px;
+    }
+
+
+    .staff-mini-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+
+    .content {
+      padding: 30px;
+      max-width: 1350px;
+      margin: auto;
+    }
+
+
+    /* ==========================================
+       WELCOME
+       ========================================== */
+
+    .welcome-card {
+      background:
+        linear-gradient(
+          135deg,
+          #0756b8,
+          #0b72d1 65%,
+          #43a9e8
+        );
+      color: white;
+      border-radius: 18px;
+      padding: 27px 30px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+
+    .welcome-card::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      right: -70px;
+      top: -110px;
+    }
+
+
+    .welcome-card h2 {
+      position: relative;
+      z-index: 2;
+      font-size: 23px;
+      font-weight: 850;
+    }
+
+
+    .welcome-card p {
+      position: relative;
+      z-index: 2;
+      font-size: 12px;
+      opacity: 0.88;
+      margin-top: 7px;
+    }
+
+
+    .live-clock {
+      position: absolute;
+      right: 30px;
+      bottom: 22px;
+      z-index: 3;
+      text-align: right;
+    }
+
+
+    .live-clock strong {
+      display: block;
+      font-size: 21px;
+      font-weight: 850;
+    }
+
+
+    .live-clock span {
+      font-size: 10px;
+      opacity: 0.8;
+    }
+
+
+    /* ==========================================
+       STAT CARDS
+       ========================================== */
+
+    .stats {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 17px;
+      margin-bottom: 24px;
+    }
+
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+
+    .stat-value {
+      color: var(--dark);
+      font-size: 23px;
+      font-weight: 900;
+      margin-top: 9px;
+    }
+
+
+    .stat-description {
+      font-size: 10px;
+      color: #8295a6;
+      margin-top: 4px;
+    }
+
+
+    /* ==========================================
+       ATTENDANCE GRID
+       ========================================== */
+
+    .attendance-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(300px, 0.75fr);
+      gap: 22px;
+    }
+
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+
+    .card-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .card-header h3 {
+      color: var(--dark);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+
+    .card-header p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+
+    .card-body {
+      padding: 22px;
+    }
+
+
+    /* ==========================================
+       ATTENDANCE STATUS
+       ========================================== */
+
+    .attendance-status {
+      padding: 18px;
+      border-radius: 13px;
+      background: #f6faff;
+      border: 1px solid #dfebf6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+
+    .status-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #edf3f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #688096;
+      font-weight: 900;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+
+    .status-circle.in {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+
+    .status-circle.out {
+      background: var(--orange-bg);
+      color: var(--orange);
+    }
+
+
+    .status-text strong {
+      display: block;
+      color: var(--dark);
+      font-size: 13px;
+    }
+
+
+    .status-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
+
+    .attendance-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+
+    .attendance-button {
+      min-height: 65px;
+      border: none;
+      border-radius: 13px;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 850;
+      transition: 0.2s;
+    }
+
+
+    .attendance-button:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+
+    .clock-in {
+      background:
+        linear-gradient(
+          135deg,
+          #168347,
+          #21a45d
+        );
+      box-shadow:
+        0 8px 18px rgba(23,132,71,0.2);
+    }
+
+
+    .clock-out {
+      background:
+        linear-gradient(
+          135deg,
+          #c46c00,
+          #e28b19
+        );
+      box-shadow:
+        0 8px 18px rgba(196,108,0,0.2);
+    }
+
+
+    .attendance-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+
+    /* ==========================================
+       GPS PANEL
+       ========================================== */
+
+    .gps-panel {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+
+    .gps-header {
+      background: #f5f9fd;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+    .gps-header strong {
+      color: var(--dark);
+      font-size: 12px;
+    }
+
+
+    .gps-badge {
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 850;
+      background: #edf3f8;
+      color: #60778c;
+    }
+
+
+    .gps-badge.success {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+
+    .gps-badge.error {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+
+    .gps-badge.warning {
+      background: var(--orange-bg);
+      color: var(--orange);
+    }
+
+
+    .gps-details {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+
+    .gps-item {
+      padding: 10px;
+      background: #fafcff;
+      border-radius: 9px;
+    }
+
+
+    .gps-item label {
+      display: block;
+      color: #8193a4;
+      font-size: 9px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+
+    .gps-item span {
+      color: var(--dark);
+      font-size: 11px;
+      font-weight: 750;
+      word-break: break-word;
+    }
+
+
+    .location-message {
+      margin: 0 14px 14px;
+      padding: 11px;
+      border-radius: 9px;
+      background: #f5f9fd;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+
+    .location-message.success {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+
+    .location-message.error {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+
+    .location-message.warning {
+      background: var(--orange-bg);
+      color: var(--orange);
+    }
+
+
+    /* ==========================================
+       HISTORY
+       ========================================== */
+
+    .history-card {
+      margin-top: 22px;
+    }
+
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+
+    th {
+      background: #f6f9fc;
+      color: #72879a;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    td {
+      color: #49647b;
+      font-size: 11px;
+      padding: 14px 15px;
+      border-bottom: 1px solid #edf2f6;
+    }
+
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+
+    .verified {
+      display: inline-block;
+      padding: 5px 8px;
+      background: var(--green-bg);
+      color: var(--green);
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+
+    .not-verified {
+      display: inline-block;
+      padding: 5px 8px;
+      background: var(--red-bg);
+      color: var(--red);
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+
+    .empty-history {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+
+    /* ==========================================
+       PROFILE
+       ========================================== */
+
+    .profile-card {
+      margin-top: 22px;
+    }
+
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 14px;
+    }
+
+
+    .profile-item {
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfdff;
+    }
+
+
+    .profile-item label {
+      display: block;
+      font-size: 9px;
+      color: #8193a4;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+
+    .profile-item span {
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+
+    /* ==========================================
+       TOAST
+       ========================================== */
+
+    .toast {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      width: min(350px, calc(100vw - 40px));
+      padding: 15px 17px;
+      border-radius: 12px;
+      color: white;
+      background: #173b5f;
+      box-shadow:
+        0 12px 30px rgba(0,0,0,0.18);
+      font-size: 12px;
+      line-height: 1.5;
+      transform: translateY(150px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+
+    .toast.success {
+      background: #178447;
+    }
+
+
+    .toast.error {
+      background: #b42318;
+    }
+
+
+    .toast.warning {
+      background: #b96800;
+    }
+
+
+    /* ==========================================
+       LOADING OVERLAY
+       ========================================== */
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.92);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+
+    .loading-overlay.show {
+      display: flex;
+    }
+
+
+    .loading-box {
+      width: min(360px, calc(100% - 40px));
+      background: white;
+      border-radius: 17px;
+      padding: 30px;
+      box-shadow:
+        0 20px 60px rgba(18,76,125,0.15);
+      border: 1px solid var(--border);
+    }
+
+
+    .spinner {
+      width: 43px;
+      height: 43px;
+      border: 4px solid #dceaf6;
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 17px;
+    }
+
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    .loading-box strong {
+      display: block;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+
+    .loading-box p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 7px;
+      line-height: 1.5;
+    }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @media (max-width: 950px) {
+
+      .sidebar {
+        width: 70px;
+        padding: 18px 9px;
+      }
+
+
+      .school-brand {
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+
+      .school-logo {
+        width: 45px;
+        height: 45px;
+      }
+
+
+      .school-brand-text,
+      .nav-button span,
+      .security-label {
+        display: none;
+      }
+
+
+      .nav-button {
+        text-align: center;
+        padding: 14px 5px;
+      }
+
+
+      .main {
+        width: calc(100% - 70px);
+        margin-left: 70px;
+      }
+
+
+      .attendance-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+      .topbar {
+        padding: 0 18px;
+      }
+
+
+      .content {
+        padding: 18px;
+      }
+
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+
+      .live-clock {
+        position: static;
+        text-align: left;
+        margin-top: 17px;
+      }
+
+
+      .welcome-card {
+        padding: 23px;
+      }
+
+
+      .attendance-actions {
+        grid-template-columns: 1fr;
+      }
+
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+      .page-title h1 {
+        font-size: 16px;
+      }
+
+
+      .page-title p {
+        display: none;
+      }
+
+
+      .staff-mini-text {
+        display: none;
+      }
+
+
+      .content {
+        padding: 13px;
+      }
+
+
+      .gps-details {
+        grid-template-columns: 1fr;
+      }
+
+
+      .card-body {
+        padding: 16px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==========================================
+       APP
+       ========================================== -->
+
+  <div class="app">
+
+
+    <!-- ==========================================
+         SIDEBAR
+         ========================================== -->
+
+    <aside class="sidebar">
+
+      <div>
+
+        <div class="school-brand">
+
+          <div class="school-logo">
+            SAG
+          </div>
+
+          <div class="school-brand-text">
+
+            <strong>
+              S.C.A.G.S.S
+            </strong>
+
+            <span>
+              STAFF PORTAL
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+          <button
+            class="nav-button active"
+            onclick="showSection('dashboard')"
+          >
+            <span>Dashboard</span>
+            <b>⌂</b>
+          </button>
+
+
+          <button
+            class="nav-button"
+            onclick="showSection('attendance')"
+          >
+            <span>Attendance</span>
+            <b>✓</b>
+          </button>
+
+
+          <button
+            class="nav-button"
+            onclick="showSection('history')"
+          >
+            <span>History</span>
+            <b>▤</b>
+          </button>
+
+
+          <button
+            class="nav-button"
+            onclick="showSection('profile')"
+          >
+            <span>My Profile</span>
+            <b>○</b>
+          </button>
+
+        </nav>
+
+      </div>
+
+
+      <div class="sidebar-bottom">
+
+        <div class="security-label">
+
+          Attendance is verified using the
+          device's GPS location when you
+          clock in or clock out.
+
+        </div>
+
+
+        <button
+          class="logout-button"
+          onclick="logout()"
+        >
+          LOG OUT
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN
+         ========================================== -->
+
+    <main class="main">
+
+
+      <!-- TOPBAR -->
+
+      <header class="topbar">
+
+        <div class="page-title">
+
+          <h1>
+            Staff Dashboard
+          </h1>
+
+          <p>
+            S.C.A.G.S.S Staff Attendance System
+          </p>
+
+        </div>
+
+
+        <div class="staff-mini">
+
+          <div
+            class="staff-avatar"
+            id="staffAvatar"
+          >
+            ST
+          </div>
+
+          <div class="staff-mini-text">
+
+            <strong id="staffNameTop">
+              Staff Member
+            </strong>
+
+            <span>
+              Staff Account
+            </span>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- CONTENT -->
+
+      <section class="content">
+
+
+        <!-- ======================================
+             WELCOME
+             ====================================== -->
+
+        <div class="welcome-card">
+
+          <h2 id="welcomeName">
+            Welcome, Staff Member
+          </h2>
+
+          <p>
+            Record your attendance using
+            the secure GPS verification system.
+          </p>
+
+
+          <div class="live-clock">
+
+            <strong id="liveTime">
+              --:--:--
+            </strong>
+
+            <span id="liveDate">
+              Loading date...
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- ======================================
+             STATS
+             ====================================== -->
+
+        <div class="stats">
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Today's Status
+            </div>
+
+            <div
+              class="stat-value"
+              id="todayStatus"
+            >
+              Not Clocked
+            </div>
+
+            <div class="stat-description">
+              Current attendance status
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Clock In
+            </div>
+
+            <div
+              class="stat-value"
+              id="todayClockIn"
+            >
+              --
+            </div>
+
+            <div class="stat-description">
+              Today's arrival time
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Clock Out
+            </div>
+
+            <div
+              class="stat-value"
+              id="todayClockOut"
+            >
+              --
+            </div>
+
+            <div class="stat-description">
+              Today's departure time
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ======================================
+             ATTENDANCE AREA
+             ====================================== -->
+
+        <div
+          id="dashboardSection"
+          class="attendance-grid"
+        >
+
+
+          <!-- ATTENDANCE CARD -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h3>
+                Today's Attendance
+              </h3>
+
+              <p>
+                Clock in and clock out using
+                your current GPS location.
+              </p>
+
+            </div>
+
+
+            <div class="card-body">
+
+
+              <!-- STATUS -->
+
+              <div
+                class="attendance-status"
+                id="attendanceStatus"
+              >
+
+                <div
+                  class="status-circle"
+                  id="statusCircle"
+                >
+                  --
+                </div>
+
+                <div class="status-text">
+
+                  <strong id="statusTitle">
+                    Not clocked in
+                  </strong>
+
+                  <span id="statusDescription">
+                    Your attendance has not been recorded today.
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <!-- BUTTONS -->
+
+              <div class="attendance-actions">
+
+                <button
+                  class="attendance-button clock-in"
+                  id="clockInButton"
+                  onclick="clockIn()"
+                >
+                  CLOCK IN
+                </button>
+
+
+                <button
+                  class="attendance-button clock-out"
+                  id="clockOutButton"
+                  onclick="clockOut()"
+                  disabled
+                >
+                  CLOCK OUT
+                </button>
+
+              </div>
+
+
+              <div
+                class="location-message"
+                id="attendanceInstruction"
+                style="margin:20px 0 0;"
+              >
+
+                GPS verification is required
+                before attendance can be recorded.
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- GPS CARD -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <h3>
+                GPS Verification
+              </h3>
+
+              <p>
+                Your location is checked against
+                the school attendance zone.
+              </p>
+
+            </div>
+
+
+            <div class="card-body">
+
+
+              <div class="gps-panel">
+
+                <div class="gps-header">
+
+                  <strong>
+                    Current Location
+                  </strong>
+
+                  <span
+                    class="gps-badge"
+                    id="gpsBadge"
+                  >
+                    NOT CHECKED
+                  </span>
+
+                </div>
+
+
+                <div class="gps-details">
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Latitude
+                    </label>
+
+                    <span id="latitude">
+                      --
+                    </span>
+
+                  </div>
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Longitude
+                    </label>
+
+                    <span id="longitude">
+                      --
+                    </span>
+
+                  </div>
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Accuracy
+                    </label>
+
+                    <span id="accuracy">
+                      --
+                    </span>
+
+                  </div>
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Distance
+                    </label>
+
+                    <span id="distance">
+                      --
+                    </span>
+
+                  </div>
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Geofence
+                    </label>
+
+                    <span id="geofence">
+                      500 metres
+                    </span>
+
+                  </div>
+
+
+                  <div class="gps-item">
+
+                    <label>
+                      Verification
+                    </label>
+
+                    <span id="verification">
+                      Not checked
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+
+                <div
+                  class="location-message"
+                  id="locationMessage"
+                >
+
+                  Press CLOCK IN or CLOCK OUT
+                  to verify your location.
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ======================================
+             ATTENDANCE SECTION
+             ====================================== -->
+
+        <div
+          id="attendanceSection"
+          class="card"
+          style="display:none;"
+        >
+
+          <div class="card-header">
+
+            <h3>
+              Attendance & GPS Verification
+            </h3>
+
+            <p>
+              Your location is checked every time
+              attendance is recorded.
+            </p>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="attendance-actions">
+
+              <button
+                class="attendance-button clock-in"
+                id="attendanceClockInButton"
+                onclick="clockIn()"
+              >
+                CLOCK IN
+              </button>
+
+              <button
+                class="attendance-button clock-out"
+                id="attendanceClockOutButton"
+                onclick="clockOut()"
+                disabled
+              >
+                CLOCK OUT
+              </button>
+
+            </div>
+
+            <br>
+
+            <div class="gps-panel">
+
+              <div class="gps-header">
+
+                <strong>
+                  GPS Location
+                </strong>
+
+                <span
+                  class="gps-badge"
+                  id="gpsBadge2"
+                >
+                  NOT CHECKED
+                </span>
+
+              </div>
+
+
+              <div class="gps-details">
+
+                <div class="gps-item">
+                  <label>Latitude</label>
+                  <span id="latitude2">--</span>
+                </div>
+
+                <div class="gps-item">
+                  <label>Longitude</label>
+                  <span id="longitude2">--</span>
+                </div>
+
+                <div class="gps-item">
+                  <label>Accuracy</label>
+                  <span id="accuracy2">--</span>
+                </div>
+
+                <div class="gps-item">
+                  <label>Distance From School</label>
+                  <span id="distance2">--</span>
+                </div>
+
+                <div class="gps-item">
+                  <label>Geofence</label>
+                  <span>500 metres</span>
+                </div>
+
+                <div class="gps-item">
+                  <label>Verification</label>
+                  <span id="verification2">--</span>
+                </div>
+
+              </div>
+
+
+              <div
+                class="location-message"
+                id="locationMessage2"
+              >
+                Waiting for GPS verification.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ======================================
+             HISTORY
+             ====================================== -->
+
+        <div
+          id="historySection"
+          class="card history-card"
+          style="display:none;"
+        >
+
+          <div class="card-header">
+
+            <h3>
+              Attendance History
+            </h3>
+
+            <p>
+              Your attendance records stored on this device.
+            </p>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>Date</th>
+                  <th>Clock In</th>
+                  <th>Clock Out</th>
+                  <th>GPS Status</th>
+                  <th>Location</th>
+                </tr>
+
+              </thead>
+
+
+              <tbody id="historyBody">
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+        <!-- ======================================
+             PROFILE
+             ====================================== -->
+
+        <div
+          id="profileSection"
+          class="card profile-card"
+          style="display:none;"
+        >
+
+          <div class="card-header">
+
+            <h3>
+              My Staff Profile
+            </h3>
+
+            <p>
+              Information associated with your staff account.
+            </p>
+
+          </div>
+
+
+          <div class="card-body">
+
+            <div class="profile-grid">
+
+
+              <div class="profile-item">
+
+                <label>
+                  Username
+                </label>
+
+                <span id="profileUsername">
+                  --
+                </span>
+
+              </div>
+
+
+              <div class="profile-item">
+
+                <label>
+                  Role
+                </label>
+
+                <span>
+                  Staff
+                </span>
+
+              </div>
+
+
+              <div class="profile-item">
+
+                <label>
+                  Account Status
+                </label>
+
+                <span>
+                  Active
+                </span>
+
+              </div>
+
+
+              <div class="profile-item">
+
+                <label>
+                  Attendance Method
+                </label>
+
+                <span>
+                  GPS Verification
+                </span>
+
+              </div>
+
+
+              <div class="profile-item">
+
+                <label>
+                  Allowed Distance
+                </label>
+
+                <span>
+                  500 metres
+                </span>
+
+              </div>
+
+
+              <div class="profile-item">
+
+                <label>
+                  Portal Version
+                </label>
+
+                <span>
+                  V1
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ==========================================
+       TOAST
+       ========================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- ==========================================
+       LOADING
+       ========================================== -->
+
+  <div
+    class="loading-overlay"
+    id="loadingOverlay"
+  >
+
+    <div class="loading-box">
+
+      <div class="spinner"></div>
+
+      <strong id="loadingTitle">
+        Checking GPS location
+      </strong>
+
+      <p id="loadingText">
+        Please allow location access when your
+        browser asks for permission.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+
+    /* =====================================================
+       S.C.A.G.S.S STAFF PORTAL V1
+       GPS ATTENDANCE SYSTEM
+       ===================================================== */
+
+
+    /* =====================================================
+       SCHOOL GPS CONFIGURATION
+       =====================================================
+
+       IMPORTANT:
+
+       Replace these two values with the ACTUAL
+       latitude and longitude of the school.
+
+       Example:
+
+       const SCHOOL_LATITUDE = 0.123456;
+       const SCHOOL_LONGITUDE = 40.123456;
+
+       The allowed attendance radius is 500 metres.
+       ===================================================== */
+
+
+    const SCHOOL_LATITUDE = 0.000000;
+
+    const SCHOOL_LONGITUDE = 0.000000;
+
+    const MAX_DISTANCE_METRES = 500;
+
+
+    /* =====================================================
+       CURRENT SESSION
+       ===================================================== */
+
+    let session = null;
+
+    let currentLocation = null;
+
+
+    /* =====================================================
+       LOAD SESSION
+       ===================================================== */
+
+    function loadSession() {
+
+      const storedSession =
+        sessionStorage.getItem(
+          "scagssSession"
+        );
+
+
+      if (!storedSession) {
+
+        window.location.href =
+          "index.html";
+
+        return;
+
+      }
+
+
+      try {
+
+        session =
+          JSON.parse(storedSession);
+
+      } catch (error) {
+
+        sessionStorage.removeItem(
+          "scagssSession"
+        );
+
+        window.location.href =
+          "index.html";
+
+        return;
+      }
+
+
+      if (
+        !session ||
+        session.role !== "staff"
+      ) {
+
+        window.location.href =
+          "index.html";
+
+        return;
+
+      }
+
+
+      setupStaffProfile();
+
+      loadTodayAttendance();
+
+      renderHistory();
+
+    }
+
+
+    /* =====================================================
+       STAFF PROFILE
+       ===================================================== */
+
+    function setupStaffProfile() {
+
+      const username =
+        session.username || "Staff Member";
+
+
+      const displayName =
+        formatStaffName(username);
+
+
+      document.getElementById(
+        "welcomeName"
+      ).textContent =
+        "Welcome, " + displayName;
+
+
+      document.getElementById(
+        "staffNameTop"
+      ).textContent =
+        displayName;
+
+
+      document.getElementById(
+        "profileUsername"
+      ).textContent =
+        username;
+
+
+      document.getElementById(
+        "staffAvatar"
+      ).textContent =
+        getInitials(displayName);
+
+    }
+
+
+    function formatStaffName(username) {
+
+      if (!username) {
+        return "Staff Member";
+      }
+
+
+      if (
+        username === "staff"
+      ) {
+
+        return "Staff Member";
+
+      }
+
+
+      return username
+        .replace(/[._-]/g, " ")
+        .replace(/\b\w/g, function(letter) {
+          return letter.toUpperCase();
+        });
+
+    }
+
+
+    function getInitials(name) {
+
+      const words =
+        name.trim().split(/\s+/);
+
+
+      if (words.length === 1) {
+
+        return words[0]
+          .substring(0, 2)
+          .toUpperCase();
+
+      }
+
+
+      return (
+        words[0][0] +
+        words[words.length - 1][0]
+      ).toUpperCase();
+
+    }
+
+
+    /* =====================================================
+       DATE / TIME
+       ===================================================== */
+
+    function updateClock() {
+
+      const now = new Date();
+
+
+      const time =
+        now.toLocaleTimeString(
+          "en-KE",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+          }
+        );
+
+
+      const date =
+        now.toLocaleDateString(
+          "en-KE",
+          {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }
+        );
+
+
+      document.getElementById(
+        "liveTime"
+      ).textContent = time;
+
+
+      document.getElementById(
+        "liveDate"
+      ).textContent = date;
+
+    }
+
+
+    setInterval(
+      updateClock,
+      1000
+    );
+
+
+    updateClock();
+
+
+    /* =====================================================
+       DATE KEY
+       ===================================================== */
+
+    function getDateKey(date = new Date()) {
+
+      const year =
+        date.getFullYear();
+
+
+      const month =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+
+      const day =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
+
+
+      return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+      );
+
+    }
+
+
+    /* =====================================================
+       STORAGE KEY
+       ===================================================== */
+
+    function getAttendanceStorageKey() {
+
+      const username =
+        session.username || "staff";
+
+
+      return (
+        "scagssAttendance_" +
+        username
+      );
+
+    }
+
+
+    /* =====================================================
+       GET ATTENDANCE RECORDS
+       ===================================================== */
+
+    function getAttendanceRecords() {
+
+      const key =
+        getAttendanceStorageKey();
+
+
+      const stored =
+        localStorage.getItem(key);
+
+
+      if (!stored) {
+        return [];
+      }
+
+
+      try {
+
+        return JSON.parse(stored);
+
+      } catch (error) {
+
+        return [];
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SAVE ATTENDANCE RECORDS
+       ===================================================== */
+
+    function saveAttendanceRecords(records) {
+
+      localStorage.setItem(
+        getAttendanceStorageKey(),
+        JSON.stringify(records)
+      );
+
+    }
+
+
+    /* =====================================================
+       TODAY'S RECORD
+       ===================================================== */
+
+    function getTodayRecord() {
+
+      const records =
+        getAttendanceRecords();
+
+
+      const today =
+        getDateKey();
+
+
+      return records.find(
+        function(record) {
+
+          return record.date === today;
+
+        }
+      ) || null;
+
+    }
+
+
+    /* =====================================================
+       LOAD TODAY ATTENDANCE
+       ===================================================== */
+
+    function loadTodayAttendance() {
+
+      const record =
+        getTodayRecord();
+
+
+      const clockInButton =
+        document.getElementById(
+          "clockInButton"
+        );
+
+
+      const clockOutButton =
+        document.getElementById(
+          "clockOutButton"
+        );
+
+
+      const attendanceClockIn =
+        document.getElementById(
+          "attendanceClockInButton"
+        );
+
+
+      const attendanceClockOut =
+        document.getElementById(
+          "attendanceClockOutButton"
+        );
+
+
+      if (!record) {
+
+        setStatus(
+          "NOT CLOCKED",
+          "Not clocked in",
+          "Your attendance has not been recorded today.",
+          ""
+        );
+
+
+        document.getElementById(
+          "todayStatus"
+        ).textContent =
+          "Not Clocked";
+
+
+        document.getElementById(
+          "todayClockIn"
+        ).textContent =
+          "--";
+
+
+        document.getElementById(
+          "todayClockOut"
+        ).textContent =
+          "--";
+
+
+        clockInButton.disabled = false;
+        clockOutButton.disabled = true;
+
+        attendanceClockIn.disabled = false;
+        attendanceClockOut.disabled = true;
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "todayClockIn"
+      ).textContent =
+        record.clockIn || "--";
+
+
+      document.getElementById(
+        "todayClockOut"
+      ).textContent =
+        record.clockOut || "--";
+
+
+      if (
+        record.clockIn &&
+        !record.clockOut
+      ) {
+
+        setStatus(
+          "IN",
+          "Currently clocked in",
+          "Your clock-in has been recorded successfully.",
+          "in"
+        );
+
+
+        document.getElementById(
+          "todayStatus"
+        ).textContent =
+          "Clocked In";
+
+
+        clockInButton.disabled = true;
+        clockOutButton.disabled = false;
+
+        attendanceClockIn.disabled = true;
+        attendanceClockOut.disabled = false;
+
+      }
+
+
+      if (
+        record.clockIn &&
+        record.clockOut
+      ) {
+
+        setStatus(
+          "OUT",
+          "Attendance complete",
+          "You have completed today's clock-in and clock-out.",
+          "out"
+        );
+
+
+        document.getElementById(
+          "todayStatus"
+        ).textContent =
+          "Complete";
+
+
+        clockInButton.disabled = true;
+        clockOutButton.disabled = true;
+
+        attendanceClockIn.disabled = true;
+        attendanceClockOut.disabled = true;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SET ATTENDANCE STATUS
+       ===================================================== */
+
+    function setStatus(
+      circleText,
+      title,
+      description,
+      type
+    ) {
+
+      const circle =
+        document.getElementById(
+          "statusCircle"
+        );
+
+
+      circle.textContent =
+        circleText;
+
+
+      circle.className =
+        "status-circle";
+
+
+      if (type) {
+
+        circle.classList.add(type);
+
+      }
+
+
+      document.getElementById(
+        "statusTitle"
+      ).textContent =
+        title;
+
+
+      document.getElementById(
+        "statusDescription"
+      ).textContent =
+        description;
+
+    }
+
+
+    /* =====================================================
+       CLOCK IN
+       ===================================================== */
+
+    function clockIn() {
+
+      const record =
+        getTodayRecord();
+
+
+      if (record && record.clockIn) {
+
+        showToast(
+          "You have already clocked in today.",
+          "warning"
+        );
+
+        return;
+
+      }
+
+
+      verifyGPS(
+        "clock-in"
+      );
+
+    }
+
+
+    /* =====================================================
+       CLOCK OUT
+       ===================================================== */
+
+    function clockOut() {
+
+      const record =
+        getTodayRecord();
+
+
+      if (!record || !record.clockIn) {
+
+        showToast(
+          "You must clock in before clocking out.",
+          "warning"
+        );
+
+        return;
+
+      }
+
+
+      if (record.clockOut) {
+
+        showToast(
+          "You have already clocked out today.",
+          "warning"
+        );
+
+        return;
+
+      }
+
+
+      verifyGPS(
+        "clock-out"
+      );
+
+    }
+
+
+    /* =====================================================
+       GPS VERIFICATION
+       ===================================================== */
+
+    function verifyGPS(action) {
+
+      if (
+        !navigator.geolocation
+      ) {
+
+        showToast(
+          "GPS is not supported by this browser.",
+          "error"
+        );
+
+        setGPSStatus(
+          "ERROR",
+          "error",
+          "Your browser does not support GPS."
+        );
+
+        return;
+
+      }
+
+
+      showLoading(
+        "Checking GPS location",
+        "Please allow location access. Your position is being verified."
+      );
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          hideLoading();
+
+
+          const latitude =
+            position.coords.latitude;
+
+
+          const longitude =
+            position.coords.longitude;
+
+
+          const accuracy =
+            position.coords.accuracy;
+
+
+          const distance =
+            calculateDistance(
+              latitude,
+              longitude,
+              SCHOOL_LATITUDE,
+              SCHOOL_LONGITUDE
+            );
+
+
+          currentLocation = {
+
+            latitude:
+              latitude,
+
+            longitude:
+              longitude,
+
+            accuracy:
+              accuracy,
+
+            distance:
+              distance,
+
+            timestamp:
+              new Date().toISOString()
+
+          };
+
+
+          updateGPSDisplay(
+            currentLocation
+          );
+
+
+          /*
+           * IMPORTANT:
+           *
+           * If school coordinates have not yet
+           * been configured, stop here.
+           */
+
+          if (
+            SCHOOL_LATITUDE === 0 &&
+            SCHOOL_LONGITUDE === 0
+          ) {
+
+            setGPSStatus(
+              "CONFIGURE",
+              "warning",
+              "School GPS coordinates have not yet been configured. Replace SCHOOL_LATITUDE and SCHOOL_LONGITUDE in this file before using attendance."
+            );
+
+
+            showToast(
+              "School GPS coordinates must be configured first.",
+              "warning"
+            );
+
+            return;
+
+          }
+
+
+          if (
+            distance <=
+            MAX_DISTANCE_METRES
+          ) {
+
+            setGPSStatus(
+              "VERIFIED",
+              "success",
+              "You are inside the approved 500-metre attendance zone."
+            );
+
+
+            if (
+              accuracy > 100
+            ) {
+
+              showToast(
+                "GPS verified, but location accuracy is low (" +
+                Math.round(accuracy) +
+                " metres).",
+                "warning"
+              );
+
+            } else {
+
+              showToast(
+                "GPS location verified successfully.",
+                "success"
+              );
+
+            }
+
+
+            if (
+              action === "clock-in"
+            ) {
+
+              saveClockIn();
+
+            } else {
+
+              saveClockOut();
+
+            }
+
+          } else {
+
+            setGPSStatus(
+              "OUTSIDE",
+              "error",
+              "Attendance denied. You are approximately " +
+              formatDistance(distance) +
+              " from the school, outside the permitted 500-metre zone."
+            );
+
+
+            showToast(
+              "Attendance denied: you are outside the 500-metre attendance zone.",
+              "error"
+            );
+
+          }
+
+        },
+
+
+        function(error) {
+
+          hideLoading();
+
+          handleGPSError(error);
+
+        },
+
+
+        {
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 0
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       GPS DISPLAY
+       ===================================================== */
+
+    function updateGPSDisplay(location) {
+
+      const latitude =
+        location.latitude.toFixed(6);
+
+
+      const longitude =
+        location.longitude.toFixed(6);
+
+
+      const accuracy =
+        Math.round(
+          location.accuracy
+        ) +
+        " m";
+
+
+      const distance =
+        formatDistance(
+          location.distance
+        );
+
+
+      document.getElementById(
+        "latitude"
+      ).textContent =
+        latitude;
+
+
+      document.getElementById(
+        "longitude"
+      ).textContent =
+        longitude;
+
+
+      document.getElementById(
+        "accuracy"
+      ).textContent =
+        accuracy;
+
+
+      document.getElementById(
+        "distance"
+      ).textContent =
+        distance;
+
+
+      document.getElementById(
+        "latitude2"
+      ).textContent =
+        latitude;
+
+
+      document.getElementById(
+        "longitude2"
+      ).textContent =
+        longitude;
+
+
+      document.getElementById(
+        "accuracy2"
+      ).textContent =
+        accuracy;
+
+
+      document.getElementById(
+        "distance2"
+      ).textContent =
+        distance;
+
+    }
+
+
+    /* =====================================================
+       GPS STATUS
+       ===================================================== */
+
+    function setGPSStatus(
+      label,
+      type,
+      message
+    ) {
+
+      const badges = [
+
+        document.getElementById(
+          "gpsBadge"
+        ),
+
+        document.getElementById(
+          "gpsBadge2"
+        )
+
+      ];
+
+
+      badges.forEach(
+        function(badge) {
+
+          badge.textContent =
+            label;
+
+          badge.className =
+            "gps-badge";
+
+
+          if (
+            type
+          ) {
+
+            badge.classList.add(
+              type
+            );
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "verification"
+      ).textContent =
+        label;
+
+
+      document.getElementById(
+        "verification2"
+      ).textContent =
+        label;
+
+
+      const messages = [
+
+        document.getElementById(
+          "locationMessage"
+        ),
+
+        document.getElementById(
+          "locationMessage2"
+        )
+
+      ];
+
+
+      messages.forEach(
+        function(element) {
+
+          element.textContent =
+            message;
+
+          element.className =
+            "location-message";
+
+
+          if (
+            type
+          ) {
+
+            element.classList.add(
+              type
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GPS ERROR
+       ===================================================== */
+
+    function handleGPSError(error) {
+
+      let message =
+        "Unable to obtain your GPS location.";
+
+
+      if (
+        error.code ===
+        1
+      ) {
+
+        message =
+          "Location permission was denied. Please enable location permission for this website in your browser settings.";
+
+      }
+
+
+      if (
+        error.code ===
+        2
+      ) {
+
+        message =
+          "Your location could not be determined. Make sure GPS/location services are enabled.";
+
+      }
+
+
+      if (
+        error.code ===
+        3
+      ) {
+
+        message =
+          "GPS request timed out. Move to an area with a clearer GPS signal and try again.";
+
+      }
+
+
+      setGPSStatus(
+        "ERROR",
+        "error",
+        message
+      );
+
+
+      showToast(
+        message,
+        "error"
+      );
+
+    }
+
+
+    /* =====================================================
+       HAVERSINE DISTANCE
+       ===================================================== */
+
+    function calculateDistance(
+      lat1,
+      lon1,
+      lat2,
+      lon2
+    ) {
+
+      const earthRadius =
+        6371000;
+
+
+      const degreesToRadians =
+        Math.PI / 180;
+
+
+      const dLat =
+        (
+          lat2 - lat1
+        ) *
+        degreesToRadians;
+
+
+      const dLon =
+        (
+          lon2 - lon1
+        ) *
+        degreesToRadians;
+
+
+      const a =
+        Math.sin(
+          dLat / 2
+        ) *
+        Math.sin(
+          dLat / 2
+        ) +
+        Math.cos(
+          lat1 *
+          degreesToRadians
+        ) *
+        Math.cos(
+          lat2 *
+          degreesToRadians
+        ) *
+        Math.sin(
+          dLon / 2
+        ) *
+        Math.sin(
+          dLon / 2
+        );
+
+
+      const c =
+        2 *
+        Math.atan2(
+          Math.sqrt(a),
+          Math.sqrt(1 - a)
+        );
+
+
+      return (
+        earthRadius * c
+      );
+
+    }
+
+
+    /* =====================================================
+       FORMAT DISTANCE
+       ===================================================== */
+
+    function formatDistance(
+      distance
+    ) {
+
+      if (
+        distance < 1000
+      ) {
+
+        return (
+          Math.round(distance) +
+          " m"
+        );
+
+      }
+
+
+      return (
+        (distance / 1000)
+          .toFixed(2) +
+        " km"
+      );
+
+    }
+
+
+    /* =====================================================
+       SAVE CLOCK IN
+       ===================================================== */
+
+    function saveClockIn() {
+
+      const records =
+        getAttendanceRecords();
+
+
+      const today =
+        getDateKey();
+
+
+      let record =
+        records.find(
+          function(item) {
+
+            return item.date === today;
+
+          }
+        );
+
+
+      const now =
+        new Date();
+
+
+      const time =
+        now.toLocaleTimeString(
+          "en-KE",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+          }
+        );
+
+
+      const timestamp =
+        now.toISOString();
+
+
+      const gpsData = {
+
+        latitude:
+          currentLocation.latitude,
+
+        longitude:
+          currentLocation.longitude,
+
+        accuracy:
+          currentLocation.accuracy,
+
+        distance:
+          currentLocation.distance,
+
+        verified:
+          true,
+
+        timestamp:
+          currentLocation.timestamp
+
+      };
+
+
+      if (!record) {
+
+        record = {
+
+          date:
+            today,
+
+          clockIn:
+            time,
+
+          clockOut:
+            null,
+
+          clockInTimestamp:
+            timestamp,
+
+          clockOutTimestamp:
+            null,
+
+          clockInGPS:
+            gpsData,
+
+          clockOutGPS:
+            null,
+
+          gpsVerified:
+            true
+
+        };
+
+
+        records.push(
+          record
+        );
+
+      } else {
+
+        record.clockIn =
+          time;
+
+        record.clockInTimestamp =
+          timestamp;
+
+        record.clockInGPS =
+          gpsData;
+
+        record.gpsVerified =
+          true;
+
+      }
+
+
+      saveAttendanceRecords(
+        records
+      );
+
+
+      loadTodayAttendance();
+
+      renderHistory();
+
+
+      showToast(
+        "Clock-in recorded successfully. GPS verified.",
+        "success"
+      );
+
+
+      setGPSStatus(
+        "VERIFIED",
+        "success",
+        "Clock-in recorded successfully. Your GPS location has been stored with the attendance record."
+      );
+
+    }
+
+
+    /* =====================================================
+       SAVE CLOCK OUT
+       ===================================================== */
+
+    function saveClockOut() {
+
+      const records =
+        getAttendanceRecords();
+
+
+      const today =
+        getDateKey();
+
+
+      const record =
+        records.find(
+          function(item) {
+
+            return item.date === today;
+
+          }
+        );
+
+
+      if (!record) {
+
+        showToast(
+          "Today's attendance record was not found.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const now =
+        new Date();
+
+
+      const time =
+        now.toLocaleTimeString(
+          "en-KE",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+          }
+        );
+
+
+      const gpsData = {
+
+        latitude:
+          currentLocation.latitude,
+
+        longitude:
+          currentLocation.longitude,
+
+        accuracy:
+          currentLocation.accuracy,
+
+        distance:
+          currentLocation.distance,
+
+        verified:
+          true,
+
+        timestamp:
+          currentLocation.timestamp
+
+      };
+
+
+      record.clockOut =
+        time;
+
+
+      record.clockOutTimestamp =
+        now.toISOString();
+
+
+      record.clockOutGPS =
+        gpsData;
+
+
+      saveAttendanceRecords(
+        records
+      );
+
+
+      loadTodayAttendance();
+
+      renderHistory();
+
+
+      showToast(
+        "Clock-out recorded successfully. GPS verified.",
+        "success"
+      );
+
+
+      setGPSStatus(
+        "VERIFIED",
+        "success",
+        "Clock-out recorded successfully. Your GPS location has been stored with the attendance record."
+      );
+
+    }
+
+
+    /* =====================================================
+       HISTORY
+       ===================================================== */
+
+    function renderHistory() {
+
+      const records =
+        getAttendanceRecords();
+
+
+      const body =
+        document.getElementById(
+          "historyBody"
+        );
+
+
+      body.innerHTML = "";
+
+
+      if (
+        records.length === 0
+      ) {
+
+        body.innerHTML =
+          `
+          <tr>
+            <td
+              colspan="5"
+              class="empty-history"
+            >
+              No attendance records yet.
+            </td>
+          </tr>
+          `;
+
+        return;
+
+      }
+
+
+      const sorted =
+        [...records].sort(
+          function(a, b) {
+
+            return b.date.localeCompare(
+              a.date
+            );
+
+          }
+        );
+
+
+      sorted.forEach(
+        function(record) {
+
+          const row =
+            document.createElement(
+              "tr"
+            );
+
+
+          const gps =
+            record.clockInGPS;
+
+
+          let gpsStatus =
+            "Not Verified";
+
+
+          let gpsClass =
+            "not-verified";
+
+
+          if (
+            record.gpsVerified
+          ) {
+
+            gpsStatus =
+              "Verified";
+
+            gpsClass =
+              "verified";
+
+          }
+
+
+          let location =
+            "--";
+
+
+          if (gps) {
+
+            location =
+              formatDistance(
+                gps.distance
+              );
+
+          }
+
+
+          row.innerHTML = `
+
+            <td>
+              ${record.date}
+            </td>
+
+            <td>
+              ${record.clockIn || "--"}
+            </td>
+
+            <td>
+              ${record.clockOut || "--"}
+            </td>
+
+            <td>
+              <span class="${gpsClass}">
+                ${gpsStatus}
+              </span>
+            </td>
+
+            <td>
+              ${location}
+            </td>
+
+          `;
+
+
+          body.appendChild(
+            row
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function showSection(
+      section
+    ) {
+
+      const dashboard =
+        document.getElementById(
+          "dashboardSection"
+        );
+
+
+      const attendance =
+        document.getElementById(
+          "attendanceSection"
+        );
+
+
+      const history =
+        document.getElementById(
+          "historySection"
+        );
+
+
+      const profile =
+        document.getElementById(
+          "profileSection"
+        );
+
+
+      dashboard.style.display =
+        "none";
+
+      attendance.style.display =
+        "none";
+
+      history.style.display =
+        "none";
+
+      profile.style.display =
+        "none";
+
+
+      if (
+        section ===
+        "dashboard"
+      ) {
+
+        dashboard.style.display =
+          "grid";
+
+      }
+
+
+      if (
+        section ===
+        "attendance"
+      ) {
+
+        attendance.style.display =
+          "block";
+
+      }
+
+
+      if (
+        section ===
+        "history"
+      ) {
+
+        history.style.display =
+          "block";
+
+        renderHistory();
+
+      }
+
+
+      if (
+        section ===
+        "profile"
+      ) {
+
+        profile.style.display =
+          "block";
+
+      }
+
+
+      const buttons =
+        document.querySelectorAll(
+          ".nav-button"
+        );
+
+
+      buttons.forEach(
+        function(button) {
+
+          button.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+
+      const clicked =
+        Array.from(
+          buttons
+        ).find(
+          function(button) {
+
+            return (
+              button
+                .getAttribute(
+                  "onclick"
+                )
+                .includes(
+                  "'" +
+                  section +
+                  "'"
+                )
+            );
+
+          }
+        );
+
+
+      if (clicked) {
+
+        clicked.classList.add(
+          "active"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    let toastTimer;
+
+
+    function showToast(
+      message,
+      type = ""
+    ) {
+
+      const toast =
+        document.getElementById(
+          "toast"
+        );
+
+
+      toast.textContent =
+        message;
+
+
+      toast.className =
+        "toast show " +
+        type;
+
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          function() {
+
+            toast.className =
+              "toast";
+
+          },
+          4500
+        );
+
+    }
+
+
+    /* =====================================================
+       LOADING
+       ===================================================== */
+
+    function showLoading(
+      title,
+      text
+    ) {
+
+      document.getElementById(
+        "loadingTitle"
+      ).textContent =
+        title;
+
+
+      document.getElementById(
+        "loadingText"
+      ).textContent =
+        text;
+
+
+      document.getElementById(
+        "loadingOverlay"
+      ).classList.add(
+        "show"
+      );
+
+    }
+
+
+    function hideLoading() {
+
+      document.getElementById(
+        "loadingOverlay"
+      ).classList.remove(
+        "show"
+      );
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
+
+    function logout() {
+
+      sessionStorage.removeItem(
+        "scagssSession"
+      );
+
+
+      window.location.href =
+        "index.html";
+
+    }
+
+
+    /* =====================================================
+       PREVENT BACK BUTTON AFTER LOGOUT
+       ===================================================== */
+
+    window.addEventListener(
+      "pageshow",
+      function() {
+
+        if (
+          !sessionStorage.getItem(
+            "scagssSession"
+          )
+        ) {
+
+          /*
+           * If the user opens staff.html directly
+           * without logging in, return to login.
+           */
+
+          window.location.href =
+            "index.html";
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       START APPLICATION
+       ===================================================== */
+
+    loadSession();
+
+
+  </script>
+
+</body>
+
+</html>
