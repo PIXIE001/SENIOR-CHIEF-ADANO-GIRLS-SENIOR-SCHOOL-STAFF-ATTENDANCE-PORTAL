@@ -4,596 +4,1051 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SAG Staff Portal V1</title>
+<title>S.C.A.G.S.S Staff Portal — Administration</title>
 
 <style>
-* {
-    box-sizing: border-box;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #eef7fa;
-    color: #222;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f7fb;
+    color:#172b3a;
 }
 
-.hidden {
-    display: none !important;
+button,
+input,
+select{
+    font:inherit;
 }
 
-/* LOGIN */
-
-#loginScreen {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+button{
+    cursor:pointer;
 }
 
-.loginBox {
-    width: 100%;
-    max-width: 400px;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    text-align: center;
+.hidden{
+    display:none!important;
 }
 
-.logo {
-    width: 80px;
-    height: 80px;
-    margin: auto;
-    border-radius: 50%;
-    background: #168aad;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    font-weight: bold;
+/* TOP BAR */
+
+.topbar{
+    height:72px;
+    background:#075a9d;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    box-shadow:0 3px 15px rgba(0,0,0,.12);
 }
 
-h1 {
-    color: #086788;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-input {
-    width: 100%;
-    padding: 13px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 7px;
+.brand-logo{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:white;
+    color:#075a9d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:900;
 }
 
-button {
-    cursor: pointer;
+.brand-title{
+    font-size:18px;
+    font-weight:900;
 }
 
-.loginBtn {
-    width: 100%;
-    padding: 13px;
-    background: #168aad;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    font-weight: bold;
+.brand-subtitle{
+    font-size:11px;
+    opacity:.8;
 }
 
-.loginBtn:hover {
-    background: #086788;
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-#error {
-    color: red;
-    margin-top: 10px;
+.logout{
+    border:none;
+    padding:9px 14px;
+    border-radius:8px;
+    background:white;
+    color:#075a9d;
+    font-weight:bold;
 }
 
-.demo {
-    margin-top: 20px;
-    padding: 12px;
-    background: #eef8fb;
-    font-size: 13px;
-    line-height: 1.7;
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 72px);
 }
 
-/* PORTAL */
-
-#portal {
-    min-height: 100vh;
+.sidebar{
+    width:245px;
+    background:white;
+    border-right:1px solid #dce6ed;
+    padding:18px 12px;
 }
 
-.header {
-    background: #086788;
-    color: white;
-    padding: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nav{
+    width:100%;
+    text-align:left;
+    border:none;
+    background:transparent;
+    padding:13px;
+    margin-bottom:5px;
+    border-radius:9px;
+    font-weight:bold;
+    color:#506474;
 }
 
-.header button {
-    background: white;
-    color: #086788;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
+.nav:hover,
+.nav.active{
+    background:#e6f3fc;
+    color:#075a9d;
 }
 
-.container {
-    padding: 25px;
+.main{
+    flex:1;
+    padding:25px;
+    max-width:1500px;
+    width:100%;
+    margin:auto;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 15px;
+/* PAGE */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+.page-header h1{
+    font-size:28px;
+    color:#173b57;
 }
 
-.card h3 {
-    color: #086788;
+.page-header p{
+    color:#738492;
+    margin-top:5px;
 }
 
-.number {
-    font-size: 30px;
-    font-weight: bold;
+/* BUTTONS */
+
+.primary{
+    background:#075a9d;
+    color:white;
+    border:none;
+    padding:11px 17px;
+    border-radius:9px;
+    font-weight:bold;
 }
 
-.menu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+.primary:hover{
+    background:#064879;
 }
 
-.menu button {
-    padding: 11px 15px;
-    border: none;
-    border-radius: 7px;
-    background: white;
-    color: #086788;
-    font-weight: bold;
+.secondary{
+    background:#e7eef4;
+    color:#173b57;
+    border:none;
+    padding:11px 17px;
+    border-radius:9px;
+    font-weight:bold;
 }
 
-.section {
-    display: none;
+.danger{
+    background:#b42323;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:7px;
+    font-weight:bold;
 }
 
-.section.active {
-    display: block;
+/* STATISTICS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
+    margin-bottom:22px;
 }
 
-.panel {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 15px;
+.stat{
+    background:white;
+    border:1px solid #dfe8ef;
+    border-radius:15px;
+    padding:20px;
 }
 
-.green {
-    background: #2e7d32;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 7px;
+.stat-title{
+    color:#748493;
+    font-size:13px;
+    margin-bottom:10px;
 }
 
-.red {
-    background: #c62828;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 7px;
+.stat-number{
+    color:#075a9d;
+    font-size:30px;
+    font-weight:900;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+/* CARD */
+
+.card{
+    background:white;
+    border:1px solid #dfe8ef;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:20px;
 }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+.card h2{
+    color:#173b57;
+    margin-bottom:18px;
 }
 
-th {
-    background: #e8f5f9;
-    color: #086788;
+/* SEARCH */
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
 }
 
-@media(max-width:600px) {
+.toolbar input,
+.toolbar select{
+    border:1px solid #cbd8e1;
+    border-radius:8px;
+    padding:11px;
+    outline:none;
+}
 
-    .header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+.toolbar input{
+    min-width:230px;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:12px 10px;
+    border-bottom:1px solid #e6edf1;
+    text-align:left;
+    white-space:nowrap;
+}
+
+th{
+    font-size:13px;
+    color:#627485;
+}
+
+td{
+    font-size:14px;
+}
+
+.status{
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.status.active{
+    background:#e8f8ee;
+    color:#16723c;
+}
+
+.status.inactive{
+    background:#ffeaea;
+    color:#a21f1f;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:520px;
+    border-radius:17px;
+    padding:25px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-box h2{
+    margin-bottom:20px;
+    color:#173b57;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd8e2;
+    border-radius:9px;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+/* GPS SETTINGS */
+
+.gps-box{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:15px;
+}
+
+.gps-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd8e2;
+    border-radius:9px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .container {
-        padding: 15px;
+    .gps-box{
+        grid-template-columns:1fr;
     }
 
 }
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:68px;
+        padding:12px 7px;
+    }
+
+    .nav{
+        font-size:0;
+        text-align:center;
+    }
+
+    .nav span{
+        font-size:20px;
+    }
+
+    .main{
+        padding:15px;
+    }
+
+    .topbar{
+        padding:0 12px;
+    }
+
+    .brand-title{
+        font-size:14px;
+    }
+
+    .brand-subtitle{
+        display:none;
+    }
+
+    .top-right span{
+        display:none;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+}
+
 </style>
 </head>
 
-
 <body>
 
+<!-- TOP BAR -->
 
-<!-- LOGIN -->
+<header class="topbar">
 
-<div id="loginScreen">
+    <div class="brand">
 
-    <div class="loginBox">
-
-        <div class="logo">
+        <div class="brand-logo">
             SAG
         </div>
 
-        <h1>SAG STAFF PORTAL</h1>
+        <div>
+            <div class="brand-title">
+                S.C.A.G.S.S STAFF PORTAL
+            </div>
 
-        <p>
-            Senior Chief Adano Girls Senior School
-        </p>
+            <div class="brand-subtitle">
+                Administration
+            </div>
+        </div>
 
-        <input
-            id="staffCode"
-            type="text"
-            placeholder="Staff Code"
-        >
+    </div>
 
-        <input
-            id="password"
-            type="password"
-            placeholder="Password"
-        >
+    <div class="top-right">
+
+        <span>
+            Administrator
+        </span>
 
         <button
-            id="loginButton"
-            class="loginBtn"
-        >
-            LOGIN
+            class="logout"
+            onclick="logout()">
+            Logout
         </button>
 
-        <div id="error"></div>
+    </div>
 
-        <div class="demo">
+</header>
 
-            <b>DEMO ACCOUNTS</b><br>
 
-            Teacher:
-            TCH001 / TCH2026
+<!-- MAIN LAYOUT -->
 
-            <br>
+<div class="layout">
 
-            Admin:
-            ADMIN001 / ADMIN2026
 
-            <br>
+<!-- SIDEBAR -->
 
-            Secretary:
-            SEC001 / SEC2026
+<aside class="sidebar">
 
-            <br>
+    <button
+        class="nav active"
+        onclick="showSection('overview',this)">
+        <span>🏠</span> Overview
+    </button>
 
-            Deputy:
-            DEP001 / DEP2026
+    <button
+        class="nav"
+        onclick="showSection('staff',this)">
+        <span>👥</span> Staff
+    </button>
 
-            <br>
+    <button
+        class="nav"
+        onclick="showSection('attendance',this)">
+        <span>📅</span> Attendance
+    </button>
 
-            Principal:
-            PRIN001 / PRIN2026
+    <button
+        class="nav"
+        onclick="showSection('gps',this)">
+        <span>📍</span> GPS Settings
+    </button>
+
+    <button
+        class="nav"
+        onclick="showSection('reports',this)">
+        <span>📊</span> Reports
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<!-- OVERVIEW -->
+
+<section id="overviewSection">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Administration Dashboard
+            </h1>
+
+            <p id="todayText"></p>
 
         </div>
 
     </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Total Teachers
+            </div>
+
+            <div
+                class="stat-number"
+                id="totalTeachers">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Present Today
+            </div>
+
+            <div
+                class="stat-number"
+                id="presentToday">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Late Today
+            </div>
+
+            <div
+                class="stat-number"
+                id="lateToday">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Not Marked
+            </div>
+
+            <div
+                class="stat-number"
+                id="notMarked">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Today's Attendance
+        </h2>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Teacher</th>
+                        <th>Staff ID</th>
+                        <th>Clock In</th>
+                        <th>Clock Out</th>
+                        <th>Status</th>
+                        <th>GPS</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="overviewTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STAFF -->
+
+<section
+    id="staffSection"
+    class="hidden">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Staff Management
+            </h1>
+
+            <p>
+                Create and manage teacher accounts.
+            </p>
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="openStaffModal()">
+            + Add Teacher
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="toolbar">
+
+            <input
+                id="staffSearch"
+                placeholder="Search teacher..."
+                oninput="renderStaff()">
+
+            <select
+                id="staffStatus"
+                onchange="renderStaff()">
+
+                <option value="all">
+                    All Staff
+                </option>
+
+                <option value="active">
+                    Active
+                </option>
+
+                <option value="inactive">
+                    Inactive
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Staff ID</th>
+                        <th>Username</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="staffTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ATTENDANCE -->
+
+<section
+    id="attendanceSection"
+    class="hidden">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Attendance Records
+            </h1>
+
+            <p>
+                View and monitor teacher attendance.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="toolbar">
+
+            <input
+                type="date"
+                id="attendanceDate"
+                onchange="renderAttendance()">
+
+            <input
+                id="attendanceSearch"
+                placeholder="Search teacher..."
+                oninput="renderAttendance()">
+
+            <button
+                class="primary"
+                onclick="exportAttendance()">
+                Export CSV
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Teacher</th>
+                        <th>Date</th>
+                        <th>Clock In</th>
+                        <th>Clock Out</th>
+                        <th>Status</th>
+                        <th>In GPS</th>
+                        <th>Out GPS</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="attendanceTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- GPS SETTINGS -->
+
+<section
+    id="gpsSection"
+    class="hidden">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                GPS Attendance Settings
+            </h1>
+
+            <p>
+                Configure the approved school attendance area.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            School Location
+        </h2>
+
+        <div class="gps-box">
+
+            <div class="form-group">
+
+                <label>
+                    Latitude
+                </label>
+
+                <input
+                    id="schoolLatitude"
+                    type="number"
+                    step="any">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Longitude
+                </label>
+
+                <input
+                    id="schoolLongitude"
+                    type="number"
+                    step="any">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Allowed Radius (metres)
+                </label>
+
+                <input
+                    id="schoolRadius"
+                    type="number"
+                    min="10">
+
+            </div>
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="saveGPSSettings()">
+            Save GPS Settings
+        </button>
+
+        <p
+            id="gpsMessage"
+            style="margin-top:15px;">
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- REPORTS -->
+
+<section
+    id="reportsSection"
+    class="hidden">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Attendance Reports
+            </h1>
+
+            <p>
+                Generate attendance data for administration.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Export Attendance
+        </h2>
+
+        <div class="toolbar">
+
+            <input
+                type="date"
+                id="reportStart">
+
+            <input
+                type="date"
+                id="reportEnd">
+
+            <button
+                class="primary"
+                onclick="exportReport()">
+                Generate CSV Report
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
 
 </div>
 
 
-<!-- PORTAL -->
+<!-- ADD STAFF MODAL -->
 
-<div id="portal" class="hidden">
+<div
+    id="staffModal"
+    class="modal hidden">
 
-    <div class="header">
+    <div class="modal-box">
 
-        <strong>SAG STAFF MANAGEMENT PORTAL</strong>
+        <h2>
+            Add Teacher
+        </h2>
 
-        <span>
-            <span id="userName"></span>
+        <div class="form-group">
 
-            <button id="logoutButton">
-                Logout
-            </button>
-        </span>
+            <label>
+                Full Name
+            </label>
 
-    </div>
-
-
-    <div class="container">
-
-
-        <div class="menu">
-
-            <button data-section="dashboard">
-                Dashboard
-            </button>
-
-            <button data-section="attendance">
-                Attendance
-            </button>
-
-            <button data-section="lessons">
-                Lessons
-            </button>
-
-            <button data-section="staff">
-                Staff
-            </button>
-
-            <button data-section="reports">
-                Reports
-            </button>
-
-            <button data-section="profile">
-                Profile
-            </button>
+            <input
+                id="newName"
+                placeholder="Teacher full name">
 
         </div>
 
 
-        <!-- DASHBOARD -->
+        <div class="form-group">
 
-        <div
-            id="dashboard"
-            class="section active"
-        >
+            <label>
+                Staff ID
+            </label>
 
-            <h2>Dashboard</h2>
-
-            <div class="cards">
-
-                <div class="card">
-                    <h3>Total Staff</h3>
-                    <div class="number">25</div>
-                </div>
-
-                <div class="card">
-                    <h3>Present Today</h3>
-                    <div class="number">22</div>
-                </div>
-
-                <div class="card">
-                    <h3>Pending Approval</h3>
-                    <div class="number">3</div>
-                </div>
-
-                <div class="card">
-                    <h3>Lessons Today</h3>
-                    <div class="number">48</div>
-                </div>
-
-            </div>
+            <input
+                id="newStaffId"
+                placeholder="Staff ID">
 
         </div>
 
 
-        <!-- ATTENDANCE -->
+        <div class="form-group">
 
-        <div
-            id="attendance"
-            class="section"
-        >
+            <label>
+                Username
+            </label>
 
-            <h2>School Attendance</h2>
-
-            <div class="panel">
-
-                <p>
-                    Today's attendance
-                </p>
-
-                <button
-                    id="signIn"
-                    class="green"
-                >
-                    SIGN IN
-                </button>
-
-                <button
-                    id="signOut"
-                    class="red"
-                >
-                    SIGN OUT
-                </button>
-
-                <p id="attendanceMessage"></p>
-
-            </div>
-
-
-            <div class="panel">
-
-                <h3>Weekly Attendance</h3>
-
-                <table>
-
-                    <tr>
-                        <th>Date</th>
-                        <th>Time In</th>
-                        <th>Time Out</th>
-                        <th>Status</th>
-                    </tr>
-
-                    <tr>
-                        <td>Today</td>
-                        <td id="timeIn">—</td>
-                        <td id="timeOut">—</td>
-                        <td>Pending Approval</td>
-                    </tr>
-
-                </table>
-
-            </div>
+            <input
+                id="newUsername"
+                placeholder="Login username">
 
         </div>
 
 
-        <!-- LESSONS -->
+        <div class="form-group">
 
-        <div
-            id="lessons"
-            class="section"
-        >
+            <label>
+                Temporary Password
+            </label>
 
-            <h2>Lesson Attendance</h2>
-
-            <div class="cards">
-
-                <div class="card">
-                    <h3>Total Lessons</h3>
-                    <div class="number">25</div>
-                </div>
-
-                <div class="card">
-                    <h3>Attended</h3>
-                    <div class="number">22</div>
-                </div>
-
-                <div class="card">
-                    <h3>Not Attended</h3>
-                    <div class="number">3</div>
-                </div>
-
-            </div>
+            <input
+                id="newPassword"
+                type="password"
+                placeholder="Temporary password">
 
         </div>
 
 
-        <!-- STAFF -->
+        <div class="form-group">
 
-        <div
-            id="staff"
-            class="section"
-        >
+            <label>
+                Department
+            </label>
 
-            <h2>Staff Management</h2>
-
-            <div class="panel">
-
-                <table>
-
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Subject</th>
-                    </tr>
-
-                    <tr>
-                        <td>TCH001</td>
-                        <td>Teacher One</td>
-                        <td>Teacher</td>
-                        <td>Mathematics</td>
-                    </tr>
-
-                    <tr>
-                        <td>TCH002</td>
-                        <td>Teacher Two</td>
-                        <td>Teacher</td>
-                        <td>English</td>
-                    </tr>
-
-                </table>
-
-            </div>
+            <input
+                id="newDepartment"
+                placeholder="Department">
 
         </div>
 
 
-        <!-- REPORTS -->
+        <div class="modal-actions">
 
-        <div
-            id="reports"
-            class="section"
-        >
+            <button
+                class="secondary"
+                onclick="closeStaffModal()">
+                Cancel
+            </button>
 
-            <h2>Reports</h2>
-
-            <div class="panel">
-
-                <p>
-                    Weekly attendance summary
-                </p>
-
-                <p>
-                    Present: 22
-                </p>
-
-                <p>
-                    Not attended: 3
-                </p>
-
-                <br>
-
-                <button
-                    class="loginBtn"
-                    id="pdfButton"
-                >
-                    GENERATE REPORT
-                </button>
-
-            </div>
+            <button
+                class="primary"
+                onclick="addStaff()">
+                Create Account
+            </button>
 
         </div>
-
-
-        <!-- PROFILE -->
-
-        <div
-            id="profile"
-            class="section"
-        >
-
-            <h2>My Profile</h2>
-
-            <div class="panel">
-
-                <p>
-                    <b>Staff Code:</b>
-                    <span id="profileCode"></span>
-                </p>
-
-                <p>
-                    <b>Name:</b>
-                    <span id="profileName"></span>
-                </p>
-
-                <p>
-                    <b>Role:</b>
-                    <span id="profileRole"></span>
-                </p>
-
-                <p>
-                    <b>Subject:</b>
-                    <span id="profileSubject"></span>
-                </p>
-
-            </div>
-
-        </div>
-
 
     </div>
 
@@ -602,237 +1057,971 @@ th {
 
 <script>
 
-const users = {
-
-    TCH001: {
-        password: "TCH2026",
-        name: "Teacher One",
-        role: "Teacher",
-        subject: "Mathematics"
-    },
-
-    ADMIN001: {
-        password: "ADMIN2026",
-        name: "System Administrator",
-        role: "Admin",
-        subject: "Administration"
-    },
-
-    SEC001: {
-        password: "SEC2026",
-        name: "School Secretary",
-        role: "Secretary",
-        subject: "Administration"
-    },
-
-    DEP001: {
-        password: "DEP2026",
-        name: "Deputy Principal",
-        role: "Deputy",
-        subject: "Administration"
-    },
-
-    PRIN001: {
-        password: "PRIN2026",
-        name: "School Principal",
-        role: "Principal",
-        subject: "Administration"
-    }
-
-};
+/* =====================================================
+   S.C.A.G.S.S ADMINISTRATION V1
+   ===================================================== */
 
 
-let currentUser = null;
+/* DEMO STAFF */
+
+let staff = JSON.parse(
+    localStorage.getItem("scagss_staff")
+    ||
+    "null"
+);
 
 
-document
-.getElementById("loginButton")
-.addEventListener("click", function() {
+if(!staff){
 
-    const code =
-        document
-        .getElementById("staffCode")
-        .value
-        .trim()
-        .toUpperCase();
+    staff = [
 
-    const password =
-        document
-        .getElementById("password")
-        .value
-        .trim();
+        {
+            name:"Demo Teacher",
+            staffId:"SAG001",
+            username:"teacher",
+            department:"Science",
+            active:true
+        },
 
-    const error =
-        document.getElementById("error");
+        {
+            name:"Sample Teacher",
+            staffId:"SAG002",
+            username:"teacher2",
+            department:"Languages",
+            active:true
+        }
 
+    ];
 
-    if (!users[code]) {
+    saveStaff();
 
-        error.textContent =
-            "Staff code not found.";
-
-        return;
-
-    }
+}
 
 
-    if (users[code].password !== password) {
+/* SAVE STAFF */
 
-        error.textContent =
-            "Incorrect password.";
+function saveStaff(){
 
-        return;
+    localStorage.setItem(
+        "scagss_staff",
+        JSON.stringify(staff)
+    );
 
-    }
-
-
-    currentUser = users[code];
-
-
-    document
-    .getElementById("loginScreen")
-    .classList.add("hidden");
+}
 
 
-    document
-    .getElementById("portal")
-    .classList.remove("hidden");
+/* ATTENDANCE */
 
+function getAttendance(){
 
-    document
-    .getElementById("userName")
-    .textContent =
-        currentUser.name +
-        " (" +
-        currentUser.role +
-        ")";
-
-
-    document
-    .getElementById("profileCode")
-    .textContent =
-        code;
-
-    document
-    .getElementById("profileName")
-    .textContent =
-        currentUser.name;
-
-    document
-    .getElementById("profileRole")
-    .textContent =
-        currentUser.role;
-
-    document
-    .getElementById("profileSubject")
-    .textContent =
-        currentUser.subject;
-
-});
-
-
-document
-.getElementById("logoutButton")
-.addEventListener("click", function() {
-
-    currentUser = null;
-
-    document
-    .getElementById("portal")
-    .classList.add("hidden");
-
-    document
-    .getElementById("loginScreen")
-    .classList.remove("hidden");
-
-});
-
-
-document
-.querySelectorAll("[data-section]")
-.forEach(function(button) {
-
-    button.addEventListener("click", function() {
-
-        document
-        .querySelectorAll(".section")
-        .forEach(function(section) {
-
-            section.classList.remove("active");
-
-        });
-
-
-        document
-        .getElementById(
-            button.dataset.section
+    return JSON.parse(
+        localStorage.getItem(
+            "scagss_attendance"
         )
-        .classList.add("active");
+        ||
+        "[]"
+    );
+
+}
+
+
+/* TODAY */
+
+function today(){
+
+    return new Date()
+    .toISOString()
+    .split("T")[0];
+
+}
+
+
+/* PAGE NAVIGATION */
+
+function showSection(section,button){
+
+    document
+    .querySelectorAll("main section")
+    .forEach(
+        s => s.classList.add("hidden")
+    );
+
+
+    document
+    .getElementById(
+        section+"Section"
+    )
+    .classList.remove("hidden");
+
+
+    document
+    .querySelectorAll(".nav")
+    .forEach(
+        n => n.classList.remove("active")
+    );
+
+
+    button.classList.add("active");
+
+
+    if(section === "overview")
+        renderOverview();
+
+    if(section === "staff")
+        renderStaff();
+
+    if(section === "attendance")
+        renderAttendance();
+
+    if(section === "gps")
+        loadGPS();
+
+}
+
+
+/* DATE */
+
+document
+.getElementById("todayText")
+.textContent =
+new Date()
+.toLocaleDateString(
+    undefined,
+    {
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+    }
+);
+
+
+/* OVERVIEW */
+
+function renderOverview(){
+
+    const attendance =
+        getAttendance();
+
+
+    const todayRecords =
+        attendance.filter(
+            r => r.date === today()
+        );
+
+
+    const present =
+        todayRecords.filter(
+            r => r.status === "PRESENT"
+        ).length;
+
+
+    const late =
+        todayRecords.filter(
+            r => r.status === "LATE"
+        ).length;
+
+
+    const missing =
+        staff.filter(
+            teacher =>
+            !todayRecords.some(
+                r =>
+                r.username ===
+                teacher.username
+            )
+        ).length;
+
+
+    document
+    .getElementById("totalTeachers")
+    .textContent =
+    staff.filter(
+        s => s.active
+    ).length;
+
+
+    document
+    .getElementById("presentToday")
+    .textContent =
+    present;
+
+
+    document
+    .getElementById("lateToday")
+    .textContent =
+    late;
+
+
+    document
+    .getElementById("notMarked")
+    .textContent =
+    missing;
+
+
+    const table =
+        document.getElementById(
+            "overviewTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    staff.forEach(teacher=>{
+
+        const record =
+            todayRecords.find(
+                r =>
+                r.username ===
+                teacher.username
+            );
+
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>
+                ${teacher.name}
+            </td>
+
+            <td>
+                ${teacher.staffId || "—"}
+            </td>
+
+            <td>
+                ${
+                    record
+                    ? formatTime(record.clockIn)
+                    : "—"
+                }
+            </td>
+
+            <td>
+                ${
+                    record
+                    ? formatTime(record.clockOut)
+                    : "—"
+                }
+            </td>
+
+            <td>
+                ${
+                    record
+                    ? record.status
+                    : "NOT MARKED"
+                }
+            </td>
+
+            <td>
+                ${
+                    record?.gpsVerified
+                    ? "✓ Verified"
+                    : "—"
+                }
+            </td>
+
+            <td>
+                ${
+                    record?.clockOutGpsVerified
+                    ? "✓ Verified"
+                    : "—"
+                }
+            </td>
+
+        </tr>
+
+        `;
 
     });
 
-});
+}
 
 
-document
-.getElementById("signIn")
-.addEventListener("click", function() {
+/* FORMAT TIME */
 
-    const time =
-        new Date().toLocaleTimeString();
+function formatTime(value){
 
-    document
-    .getElementById("timeIn")
-    .textContent = time;
+    if(!value)
+        return "—";
 
-    document
-    .getElementById("attendanceMessage")
-    .textContent =
-        "Attendance submitted at " +
-        time +
-        ". Awaiting approval.";
-
-});
-
-
-document
-.getElementById("signOut")
-.addEventListener("click", function() {
-
-    const time =
-        new Date().toLocaleTimeString();
-
-    document
-    .getElementById("timeOut")
-    .textContent = time;
-
-});
-
-
-document
-.getElementById("pdfButton")
-.addEventListener("click", function() {
-
-    alert(
-        "PDF reporting will be connected in the next V1 stage."
+    return new Date(value)
+    .toLocaleTimeString(
+        [],
+        {
+            hour:"2-digit",
+            minute:"2-digit"
+        }
     );
 
-});
+}
 
 
-document
-.getElementById("password")
-.addEventListener("keydown", function(event) {
+/* STAFF TABLE */
 
-    if (event.key === "Enter") {
+function renderStaff(){
 
+    const search =
+        (
+            document
+            .getElementById(
+                "staffSearch"
+            )
+            ?.value
+            ||
+            ""
+        ).toLowerCase();
+
+
+    const status =
         document
-        .getElementById("loginButton")
-        .click();
+        .getElementById(
+            "staffStatus"
+        )
+        ?.value
+        ||
+        "all";
+
+
+    const table =
+        document.getElementById(
+            "staffTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    staff
+    .filter(
+        teacher =>
+        teacher.name
+        .toLowerCase()
+        .includes(search)
+    )
+    .filter(
+        teacher =>
+        status === "all"
+        ||
+        (
+            status === "active"
+            &&
+            teacher.active
+        )
+        ||
+        (
+            status === "inactive"
+            &&
+            !teacher.active
+        )
+    )
+    .forEach(
+        teacher => {
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${teacher.name}
+                </td>
+
+                <td>
+                    ${teacher.staffId || "—"}
+                </td>
+
+                <td>
+                    ${teacher.username}
+                </td>
+
+                <td>
+                    ${teacher.department || "—"}
+                </td>
+
+                <td>
+
+                    <span class="status ${
+                        teacher.active
+                        ? "active"
+                        : "inactive"
+                    }">
+
+                        ${
+                            teacher.active
+                            ? "ACTIVE"
+                            : "INACTIVE"
+                        }
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="${
+                            teacher.active
+                            ? "danger"
+                            : "primary"
+                        }"
+                        onclick="toggleStaff('${teacher.username}')">
+
+                        ${
+                            teacher.active
+                            ? "Deactivate"
+                            : "Activate"
+                        }
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* STAFF MODAL */
+
+function openStaffModal(){
+
+    document
+    .getElementById(
+        "staffModal"
+    )
+    .classList.remove("hidden");
+
+}
+
+
+function closeStaffModal(){
+
+    document
+    .getElementById(
+        "staffModal"
+    )
+    .classList.add("hidden");
+
+}
+
+
+/* ADD STAFF */
+
+function addStaff(){
+
+    const name =
+        document
+        .getElementById("newName")
+        .value.trim();
+
+
+    const staffId =
+        document
+        .getElementById("newStaffId")
+        .value.trim();
+
+
+    const username =
+        document
+        .getElementById("newUsername")
+        .value.trim();
+
+
+    const password =
+        document
+        .getElementById("newPassword")
+        .value;
+
+
+    const department =
+        document
+        .getElementById("newDepartment")
+        .value.trim();
+
+
+    if(
+        !name ||
+        !username ||
+        !password
+    ){
+
+        alert(
+            "Name, username and password are required."
+        );
+
+        return;
 
     }
 
-});
+
+    if(
+        staff.some(
+            s =>
+            s.username === username
+        )
+    ){
+
+        alert(
+            "That username already exists."
+        );
+
+        return;
+
+    }
+
+
+    staff.push({
+
+        name,
+        staffId,
+        username,
+        department,
+        active:true
+
+    });
+
+
+    saveStaff();
+
+    closeStaffModal();
+
+    renderStaff();
+
+    renderOverview();
+
+    alert(
+        "Teacher account created."
+    );
+
+}
+
+
+/* ACTIVATE / DEACTIVATE */
+
+function toggleStaff(username){
+
+    const teacher =
+        staff.find(
+            s =>
+            s.username === username
+        );
+
+
+    if(!teacher)
+        return;
+
+
+    teacher.active =
+        !teacher.active;
+
+
+    saveStaff();
+
+    renderStaff();
+
+    renderOverview();
+
+}
+
+
+/* ATTENDANCE */
+
+function renderAttendance(){
+
+    const date =
+        document
+        .getElementById(
+            "attendanceDate"
+        )
+        .value
+        ||
+        today();
+
+
+    const search =
+        (
+            document
+            .getElementById(
+                "attendanceSearch"
+            )
+            .value
+            ||
+            ""
+        ).toLowerCase();
+
+
+    const records =
+        getAttendance()
+        .filter(
+            r =>
+            r.date === date
+        )
+        .filter(
+            r =>
+            r.name
+            .toLowerCase()
+            .includes(search)
+        );
+
+
+    const table =
+        document
+        .getElementById(
+            "attendanceTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    records.forEach(record=>{
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>
+                ${record.name}
+            </td>
+
+            <td>
+                ${record.date}
+            </td>
+
+            <td>
+                ${formatTime(record.clockIn)}
+            </td>
+
+            <td>
+                ${formatTime(record.clockOut)}
+            </td>
+
+            <td>
+                ${record.status}
+            </td>
+
+            <td>
+                ${
+                    record.gpsVerified
+                    ?
+                    Math.round(
+                        record.distance || 0
+                    )+"m ✓"
+                    :
+                    "—"
+                }
+            </td>
+
+            <td>
+                ${
+                    record.clockOutGpsVerified
+                    ?
+                    Math.round(
+                        record.clockOutDistance || 0
+                    )+"m ✓"
+                    :
+                    "—"
+                }
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    if(records.length === 0){
+
+        table.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="7"
+                style="text-align:center;color:#71808d">
+
+                No attendance records found.
+
+            </td>
+
+        </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* GPS SETTINGS */
+
+function loadGPS(){
+
+    const settings =
+        JSON.parse(
+            localStorage.getItem(
+                "scagss_gps"
+            )
+            ||
+            "{}"
+        );
+
+
+    document
+    .getElementById(
+        "schoolLatitude"
+    )
+    .value =
+    settings.latitude || "";
+
+
+    document
+    .getElementById(
+        "schoolLongitude"
+    )
+    .value =
+    settings.longitude || "";
+
+
+    document
+    .getElementById(
+        "schoolRadius"
+    )
+    .value =
+    settings.radius || 500;
+
+}
+
+
+function saveGPSSettings(){
+
+    const latitude =
+        document
+        .getElementById(
+            "schoolLatitude"
+        )
+        .value;
+
+
+    const longitude =
+        document
+        .getElementById(
+            "schoolLongitude"
+        )
+        .value;
+
+
+    const radius =
+        document
+        .getElementById(
+            "schoolRadius"
+        )
+        .value;
+
+
+    if(
+        !latitude ||
+        !longitude ||
+        !radius
+    ){
+
+        alert(
+            "Complete all GPS settings."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "scagss_gps",
+        JSON.stringify({
+
+            latitude:
+                Number(latitude),
+
+            longitude:
+                Number(longitude),
+
+            radius:
+                Number(radius)
+
+        })
+    );
+
+
+    const message =
+        document
+        .getElementById(
+            "gpsMessage"
+        );
+
+
+    message.textContent =
+        "✓ GPS settings saved successfully.";
+
+    message.style.color =
+        "#16723c";
+
+}
+
+
+/* EXPORT ATTENDANCE */
+
+function exportAttendance(){
+
+    const records =
+        getAttendance();
+
+
+    createCSV(records);
+
+}
+
+
+function exportReport(){
+
+    const start =
+        document
+        .getElementById(
+            "reportStart"
+        )
+        .value;
+
+
+    const end =
+        document
+        .getElementById(
+            "reportEnd"
+        )
+        .value;
+
+
+    let records =
+        getAttendance();
+
+
+    if(start){
+
+        records =
+        records.filter(
+            r =>
+            r.date >= start
+        );
+
+    }
+
+
+    if(end){
+
+        records =
+        records.filter(
+            r =>
+            r.date <= end
+        );
+
+    }
+
+
+    createCSV(records);
+
+}
+
+
+/* CSV */
+
+function createCSV(records){
+
+    if(!records.length){
+
+        alert(
+            "No records available."
+        );
+
+        return;
+
+    }
+
+
+    let csv =
+        "Teacher,Username,Date,Clock In,Clock Out,Status,GPS Verified,Distance\n";
+
+
+    records.forEach(r=>{
+
+        csv +=
+            `"${r.name}",`+
+            `"${r.username}",`+
+            `"${r.date}",`+
+            `"${formatTime(r.clockIn)}",`+
+            `"${formatTime(r.clockOut)}",`+
+            `"${r.status}",`+
+            `"${r.gpsVerified ? "Yes":"No"}",`+
+            `"${Math.round(r.distance || 0)}m"\n`;
+
+    });
+
+
+    const blob =
+        new Blob(
+            [csv],
+            {
+                type:
+                "text/csv;charset=utf-8;"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "SCAGSS_Attendance_Report.csv";
+
+    link.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* INITIAL LOAD */
+
+document
+.getElementById(
+    "attendanceDate"
+)
+.value =
+today();
+
+
+renderOverview();
 
 </script>
 
